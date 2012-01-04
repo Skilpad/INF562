@@ -81,32 +81,13 @@ public class PointLocation_RandomWalk implements PlanarPointLocation{
      * The result is null whether there in no other intersected edge.
      */    
     public static Halfedge<Point_2> getNextIntersectedEdge(Halfedge<Point_2> first, Point_2 p1, Point_2 p2) {
-//    	Fenetre f=new Fenetre();
-//    	System.out.println("#####");
-//    	
-//    	f.addFatSegment(p1,p2);
-//    	
-//    	f.addColoredSegment(first.getNext().getVertex().getPoint(), first.getNext().getNext().getVertex().getPoint(), new Color(0x880000));
-//    	f.addColoredSegment(first.getVertex().getPoint(), first.getPrev().getVertex().getPoint(), new Color(0x000000));
-//    	f.addColoredSegment(first.getVertex().getPoint(), first.getNext().getVertex().getPoint(), new Color(0xFF0000));
-//    	
-//    	f.addColoredSegment(first.getNext().getOpposite().getNext().getVertex().getPoint(), first.getNext().getOpposite().getNext().getNext().getVertex().getPoint(), new Color(0x000000));
-//    	f.addColoredSegment(first.getNext().getOpposite().getVertex().getPoint(), first.getNext().getOpposite().getPrev().getVertex().getPoint(), new Color(0x000000));
-//    	f.addColoredSegment(first.getNext().getOpposite().getVertex().getPoint(), first.getNext().getOpposite().getNext().getVertex().getPoint(), new Color(0xFF0000));
-//    	
-//    	if (true) return null;
-    	
     	Segment_2 seg_0     = new Segment_2(p1,p2);
-//    	System.out.println(seg_0); f.addFatSegment(seg_0.p, seg_0.q);
     	Halfedge<Point_2> e = first.getNext().getOpposite();
     	Segment_2 seg       = new Segment_2(e.getVertex().getPoint(), e.getNext().getVertex().getPoint());
-//    	System.out.println(seg); f.addFatSegment(seg.p, seg.q);
     	if (GeometricOperations_2.doIntersect(seg_0, seg)) return e;
     	e   = e.getNext();
     	seg = new Segment_2(e.getVertex().getPoint(), e.getNext().getVertex().getPoint());
-//    	System.out.println(seg); f.addFatSegment(seg.p, seg.q);
     	if (GeometricOperations_2.doIntersect(seg_0, seg)) return e;
-//    	System.out.println("----");
     	return null;    	
    }
 
@@ -136,9 +117,9 @@ public class PointLocation_RandomWalk implements PlanarPointLocation{
      */    
     public static void main (String[] args) {
     	// Load a plane triangulation from an OFF file
-    	Polyhedron_3<Point_2> triangulation=openTriangulation("delaunay100.off");
-    	Face<Point_2> outerFace=triangulation.facets.get(0);
-    	Halfedge<Point_2> rootEdge=outerFace.getEdge();
+    	Polyhedron_3<Point_2> triangulation = openTriangulation("delaunay100.off");
+    	Face<Point_2> outerFace = triangulation.facets.get(0);
+    	Halfedge<Point_2> rootEdge = outerFace.getEdge();
     	triangulation.makeHole(rootEdge); // delete the outer face
     	triangulation.isValid(false);
     	

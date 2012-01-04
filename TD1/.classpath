@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Program Files/Java/Java3D/1.5.1/bin"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/LIB/j3dcore.jar"/>
+	<classpathentry kind="lib" path="/LIB/j3dutils.jar"/>
+	<classpathentry kind="lib" path="/LIB/Jama-1.0.2.jar"/>
+	<classpathentry kind="lib" path="/LIB/Jcg.jar"/>
+	<classpathentry kind="lib" path="/LIB/TC.jar"/>
+	<classpathentry kind="lib" path="/LIB/vecmath.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

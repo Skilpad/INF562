@@ -58,8 +58,9 @@ public class SpectralDrawing_2<X extends Point_> extends GraphDrawing<X>{
 
 
 	public void init() {
-		int n = g.sizeVertices();
+		choseBorder();
 		for (int i = 0; i < n; i++) points.add((X) (new Point_2(Math.random(),Math.random())));
+		for (int i : borderPoints) points.set(i, (X) (new Point_2(Math.cos(Math.PI*i*2/k),Math.sin(Math.PI*i*2/k)))); 
 	}
 
 	public void computeDrawing() {

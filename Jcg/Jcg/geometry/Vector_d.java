@@ -18,10 +18,10 @@ public class Vector_d implements Vector_{
 		for (int c = 0; c < dimension(); c++) coordinates[c] = coord[c];
 	}
 
-	/** Create vector AB ( <=> B.minus(A) ) **/
-	public Vector_d(Point_d a, Point_d b) { 
-		coordinates = new Double[a.dimension()];
-		for (int c = 0; c < dimension(); c++) coordinates[c] = b.getCartesian(c).doubleValue() - a.getCartesian(c).doubleValue();
+	/** Create vector from->to ( <=> to.minus(from) ) **/
+	public Vector_d(Point_d from, Point_d to) { 
+		coordinates = new Double[from.dimension()];
+		for (int c = 0; c < dimension(); c++) coordinates[c] = to.getCartesian(c).doubleValue() - from.getCartesian(c).doubleValue();
 	}
 
 	
@@ -85,6 +85,11 @@ public class Vector_d implements Vector_{
 		return Math.sqrt(r);
 	}
 
+	public Vector_d normalized() {
+		return this.divisionByScalar(this.length());
+	}
+	
+
 	
 	//**********
 	//  Modify
@@ -106,7 +111,10 @@ public class Vector_d implements Vector_{
 		for (int i = 0; i < coordinates.length; i++) coordinates[i] /= s.doubleValue();
 	}
 
-	
+	public void normalize() {
+		this.divideBy(this.length());
+	}
+
 	
 	
 	

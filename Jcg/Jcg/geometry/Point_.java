@@ -1,7 +1,7 @@
 package Jcg.geometry;
 
 public interface Point_ extends Comparable<Point_>{
-
+	
 	public Number getCartesian(int i);  
 	public void setCartesian(int i, Number x);
 	

@@ -19,11 +19,11 @@ public class Vector_3 implements Vector_ {
 		this.z = z.doubleValue();
 	}
 
-	/** Create vector AB ( <=> B.minus(A) ) **/
-	public Vector_3(Point_3 a, Point_3 b) { 
-		this.x = b.getX().doubleValue()-a.getX().doubleValue(); 
-		this.y = b.getY().doubleValue()-a.getY().doubleValue(); 
-		this.z = b.getZ().doubleValue()-a.getZ().doubleValue(); 
+	/** Create vector from->to ( <=> to.minus(from) ) **/
+	public Vector_3(Point_3 from, Point_3 to) { 
+		this.x = to.getX().doubleValue()-from.getX().doubleValue(); 
+		this.y = to.getY().doubleValue()-from.getY().doubleValue(); 
+		this.z = to.getZ().doubleValue()-from.getZ().doubleValue(); 
 	}
 
 
@@ -80,6 +80,10 @@ public class Vector_3 implements Vector_ {
 						x*b.getCartesian(1).doubleValue()-y*b.getCartesian(0).doubleValue());
 	}
 
+	public Vector_3 normalized() {
+		return this.divisionByScalar(this.length());
+	}
+
 
 
 	//**********
@@ -110,6 +114,9 @@ public class Vector_3 implements Vector_ {
 		z /= s.doubleValue();		
 	}
 
+	public void normalize() {
+		this.divideBy(this.length());
+	}
 
 
 

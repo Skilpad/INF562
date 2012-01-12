@@ -21,6 +21,8 @@ public interface Vector_ {
 	public Vector_ divisionByScalar(Number s);
 	/** Return this*s **/
 	public Vector_ multiplyByScalar(Number s);
+	/** Return the normalized vector **/
+	public Vector_ normalized();
 	
 	/** Return the inner product of this & v **/
 	public Number innerProduct(Vector_ v);
@@ -37,6 +39,8 @@ public interface Vector_ {
 	public void multiplyBy(Number s);
 	/** this /= s **/
 	public void divideBy(Number s);	
+	/** Normalize the vector **/
+	public void normalize();
 	
 	public int dimension();
 	public String toString();

@@ -18,10 +18,10 @@ public class Vector_2 implements Vector_{
 		this.y = y.doubleValue();
 	}
 
-	/** Create vector AB ( <=> B.minus(A) ) **/
-	public Vector_2(Point_2 a, Point_2 b) { 
-		this.x = b.getX().doubleValue()-a.getX().doubleValue(); 
-		this.y = b.getY().doubleValue()-a.getY().doubleValue(); 
+	/** Create vector from->to ( <=> to.minus(from) ) **/
+	public Vector_2(Point_2 from, Point_2 to) { 
+		this.x = to.getX().doubleValue()-from.getX().doubleValue(); 
+		this.y = to.getY().doubleValue()-from.getY().doubleValue(); 
 	}
 
 	
@@ -71,6 +71,10 @@ public class Vector_2 implements Vector_{
 	public Vector_2 perpendicular(Orientation o) {
 		return (o.isCounterclockwise()) ? (new Vector_2(-y,x)) : (new Vector_2(y,-x));
 	}
+	
+	public Vector_2 normalized() {
+		return this.divisionByScalar(this.length());
+	}
 
 	
 	//**********
@@ -97,7 +101,9 @@ public class Vector_2 implements Vector_{
 		y /= s.doubleValue();		
 	}
 
-	
+	public void normalize() {
+		this.divideBy(this.length());
+	}
 	
 	
 	

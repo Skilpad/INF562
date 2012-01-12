@@ -16,7 +16,7 @@ public abstract class GraphDrawing<X extends Point_>{
 
 	Graph g;
 	ArrayList<X> points;
-
+	
 	/**
 	 * returns the position of a vertex in the space (2D or 3D)
 	 */

@@ -66,23 +66,24 @@ public class SpectralDrawing_2<X extends Point_> extends GraphDrawing<X>{
 	public void computeDrawing() {
 		init();
 		// We will solve the equation: M.[x3,x4,...]t = B.[x0,x1,x2]t
-		double[][] X0 = new double[3][1];
-		double[][] Y0 = new double[3][1];
-		for (int j = 0; j < 3; j++) { 
-			Point_ p = points.get(j);
+		double[][] X0 = new double[k][1];
+		double[][] Y0 = new double[k][1];
+		for (int j = 0; j < k; j++) { 
+			Point_ p = points.get(borderPoints[j]);
 			X0[j][0] = p.getCartesian(0).doubleValue();
 			Y0[j][0] = p.getCartesian(1).doubleValue();
 		}
 		// First we calculate M and B
-		double[][] M = new double[n-3][n-3];
-		double[][] B = new double[n-3][3];
-		for (int i = 3; i < n; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (g.adjacent(i,j)) { M[i-3][i-3]++; B[i-3][j] = 1; }
+		double[][] M = new double[n-k][n-k];
+		double[][] B = new double[n-k][k];
+		
+		for (int i = 0; i < n-k; i++) {
+			for (int j = 0; j < k; j++) {
+				if (g.adjacent(insidePoints[i],borderPoints[j])) { M[i][i]++; B[i][j] = 1; }
 			}
-			for (int j = 3; j < n; j++) {
+			for (int j = 0; j < n-k; j++) {
 				if (j == i) continue;
-				if (g.adjacent(i,j)) { M[i-3][i-3]++; M[i-3][j-3] = -1; }
+				if (g.adjacent(insidePoints[i],insidePoints[j])) { M[i][i]++; M[i][j] = -1; }
 			}			
 		}
 		// Then we solve the system
@@ -91,20 +92,12 @@ public class SpectralDrawing_2<X extends Point_> extends GraphDrawing<X>{
 		Matrix X0_ = new Matrix(X0);
 		Matrix Y0_ = new Matrix(Y0);
 		
-		M_.print(5, 5);
-		B_.print(5, 5);
-		X0_.print(5, 5);
-		Y0_.print(5, 5);
-		
 		Matrix X_  = M_.inverse().times(B_).times(X0_);
 		Matrix Y_  = M_.inverse().times(B_).times(Y0_);
-
-		X_.print(5, 5);
-		Y_.print(5, 5);
 		
 		// We finally register the obtained data
-		for (int i = 3; i < n; i++) {
-			points.set(i, (X) (new Point_2(X_.get(i-3,0),Y_.get(i-3,0))));
+		for (int i = 0; i < n-k; i++) {
+			points.set(insidePoints[i], (X) (new Point_2(X_.get(i,0),Y_.get(i,0))));
 		}
 	}
 
@@ -114,6 +107,7 @@ public class SpectralDrawing_2<X extends Point_> extends GraphDrawing<X>{
 	public static void main(String[] args) {
 		System.out.println("Spectral Drawing 2D");		
 		Graph g = AdjacencyGraph.constructCube();
+//		Graph g = graphExamples.example12();
 		System.out.println("graph initialized");
 
 		SpectralDrawing_2<Point_2> d = new SpectralDrawing_2<Point_2>(g);

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path=""/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="lib" path="/LIB/Jama-1.0.2.jar"/>
+	<classpathentry kind="lib" path="/LIB/j3dcore.jar"/>
+	<classpathentry kind="lib" path="/LIB/j3dutils.jar"/>
+	<classpathentry kind="lib" path="/LIB/TC.jar"/>
+	<classpathentry kind="lib" path="/LIB/vecmath.jar"/>
+	<classpathentry kind="output" path=""/>
+</classpath>

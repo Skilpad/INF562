@@ -8,9 +8,8 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="/LIB/j3dcore.jar"/>
 	<classpathentry kind="lib" path="/LIB/j3dutils.jar"/>
-	<classpathentry kind="lib" path="/LIB/Jama-1.0.2.jar"/>
-	<classpathentry kind="lib" path="/LIB/Jcg.jar"/>
 	<classpathentry kind="lib" path="/LIB/TC.jar"/>
 	<classpathentry kind="lib" path="/LIB/vecmath.jar"/>
+	<classpathentry kind="lib" path="/Jcg"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

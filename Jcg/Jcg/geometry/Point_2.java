@@ -36,7 +36,7 @@ public class Point_2 implements Point_{
 	}
 	
 	/** Return a copy of p (fields are not shared) **/
-	public Point_2 clone() { return new Point_2(this); }
+	public Point_2 copy() { return new Point_2(this); }
 		
 
 	//*******************

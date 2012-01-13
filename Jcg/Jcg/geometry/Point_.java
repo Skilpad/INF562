@@ -26,7 +26,7 @@ public interface Point_ extends Comparable<Point_>{
 	
 	// Global calculus
 	/** Return a copy of p (fields are not shared) **/
-	public Point_ clone();
+	public Point_ copy();
 	/** Return the isobarycenter of points **/
 	public Point_ barycenter_(Point_ [] points);
 	/** Return the barycenter of points with masses given by coefficients **/
@@ -45,32 +45,5 @@ public interface Point_ extends Comparable<Point_>{
 	
 	public int dimension();
 	public String toString();
-	
-}
-
-
-class Orientation {
-	
-	static int CLOCKWISE=1;
-	static int COUNTERCLOCKWISE=-1;
-	static int COLLINEAR=0;
-	
-	private int or;
-	
-	public Orientation(int or) {
-		this.or = or;
-	}
-	
-	public boolean isClockwise() {
-		return this.or == CLOCKWISE;
-	}
-
-	public boolean isCounterclockwise() {
-		return this.or == COUNTERCLOCKWISE;
-	}
-
-	public boolean isCollinear() {
-		return this.or == COLLINEAR;
-	}
 	
 }

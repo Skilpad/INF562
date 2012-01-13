@@ -14,8 +14,8 @@ public class MesherOperations {
 		    System.exit (-1);
 		}
 		Point_2 a = e[0], b = e[1];
-		Point_2 m = new Point_2 ((a.x+b.x)/2, (a.y+b.y)/2);
-		Point_2 c = new Point_2 (m.x + (b.x-a.x)/2, m.y + (a.y-b.y)/2);
+		Point_2 m = new Point_2 ((a.x()+b.x())/2, (a.y()+b.y())/2);
+		Point_2 c = new Point_2 (m.x() + (b.x()-a.x())/2, m.y() + (a.y()-b.y())/2);
 		if (GeometricOperations_2.isCounterClockwise (a,b,c))
 		    return  GeometricOperations_2.inCircle (a,b,c,p);
 		else
@@ -32,12 +32,12 @@ public class MesherOperations {
 	    System.exit (-1);
 	}
 	Point_2 p = e[0], q = e[1];
-	Point_2 m = new Point_2 ((p.x+q.x)/2, (p.y+q.y)/2);
+	Point_2 m = new Point_2 ((p.x()+q.x())/2, (p.y()+q.y())/2);
 	double dist = Math.sqrt (p.squareDistance(q).doubleValue());
-	Point_2 a = new Point_2 (m.x + 3*(p.y-q.y)/dist, 
-			     m.y + 3*(q.x-p.x)/dist);  
-	Point_2 b = new Point_2 (m.x + 3*(q.y-p.y)/dist, 
-			     m.y + 3*(p.x-q.x)/dist);  
+	Point_2 a = new Point_2 (m.x() + 3*(p.y()-q.y())/dist, 
+			     m.y() + 3*(q.x()-p.x())/dist);  
+	Point_2 b = new Point_2 (m.x() + 3*(q.y()-p.y())/dist, 
+			     m.y() + 3*(p.x()-q.x())/dist);  
 	Point_2[] sols = intersectSegmentWithCircle (a, b, new Point_2 (0,0), 1);
 	if (sols[0] == null || sols[1] == null) {
 	    System.out.println("Pb with size of segment/circle intersection:");
@@ -62,7 +62,7 @@ public class MesherOperations {
 	double alpha, betaprime, gamma, deltaprime, root1, root2;
 	
 	// Compute coefficients of trinomial
-	betaprime = (a.x-center.x)*(b.x-a.x) + (a.y-center.y)*(b.y-a.y);
+	betaprime = (a.x()-center.x())*(b.x()-a.x()) + (a.y()-center.y())*(b.y()-a.y());
 	alpha = a.squareDistance(b).doubleValue();
 	gamma = a.squareDistance(center).doubleValue() - radius*radius;
 	
@@ -81,11 +81,11 @@ public class MesherOperations {
 	// There is an intersection iff a root is between 0 and 1
 	Point_2 sols[] = new Point_2 [2];
 	if (root1>=0 && root1<=1)
-	    sols[0] = new Point_2(a.x + root1*(b.x - a.x), a.y + root1*(b.y - a.y));
+	    sols[0] = new Point_2(a.x() + root1*(b.x() - a.x()), a.y() + root1*(b.y() - a.y()));
 	else 
 	    sols[0] = null;
 	if (root2>=0 && root2<=1)
-	    sols[1] = new Point_2(a.x + root2*(b.x - a.x), a.y + root2*(b.y - a.y));
+	    sols[1] = new Point_2(a.x() + root2*(b.x() - a.x()), a.y() + root2*(b.y() - a.y()));
 	else
 	    sols[1] = null;
 	

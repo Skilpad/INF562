@@ -35,7 +35,7 @@ public class IO {
 	 out.write (vertices.size() + " " + faces.size() + " 0\n");
 	 int i=0;
 	 for (Point_2 p : vertices) {
-	     out.write(p.x + " " + p.y + " 0\n");
+	     out.write(p.x() + " " + p.y() + " 0\n");
 	     vert.put(p, new Integer(i++));
 	 }    
 	 

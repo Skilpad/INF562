@@ -1,43 +1,55 @@
 package Jcg.geometry;
 
-public interface DataDomain extends Comparable<DataDomain> {
+//public interface DataDomain extends Comparable<DataDomain> {
+public abstract class DataDomain implements Comparable<DataDomain> {
+	
+	/** To use as constructor for classes extending DataDomain:
+	 *  if X extends DataDomain, X.constructor() returns new X(),
+	 *  assumed to be the element 0 of X  **/
+	public static DataDomain constructor() { return null; }
 	
 	/** Return the i-th coordinate **/
-	public Number getCartesian(int i);  
+	public abstract Number getCartesian(int i);  
 	/** Set the i-th coordinate **/
-	public void setCartesian(int i, Number x);
+	public abstract void setCartesian(int i, Number x);
 	/** Return the dimension of the data **/	
-	public int dimension();
+	public abstract int dimension();
 	/** Return a string representation of the data.
 	 *  For example, (1,2,7) will be represented by string "1,2,7". **/
-	public String toString();
+	public abstract String toString();
 	/** Test if equal. To be equal, DataDomains must have the same dimension. **/
-	public boolean equals(DataDomain d);
+	public abstract boolean equals(DataDomain d);
 	
 	/** Set to 0 **/
-	public void setOrigin();
+	public abstract void setOrigin();
 	/** Set values to those of d. d must have the same dimension. **/
-	public void copy(DataDomain d);
+	public abstract void copy(DataDomain d);
 	/** Return an independent copy. **/
-	public DataDomain copy();
+	public abstract DataDomain copy();
 	
 	/** this += d **/
-	public void add(DataDomain d);
+	public abstract void add(DataDomain d);
 	/** this -= d **/
-	public void take(DataDomain d);
+	public abstract void take(DataDomain d);
 	/** this *= s **/
-	public void multiplyBy(Number s);
+	public abstract void multiplyBy(Number s);
 	/** this /= s **/
-	public void divideBy(Number s);
+	public abstract void divideBy(Number s);
 		
 	/** Return this + d **/
-	public DataDomain plus(DataDomain d);
+	public abstract DataDomain plus(DataDomain d);
 	/** Return this -= d **/
-	public DataDomain minus(DataDomain d);
+	public abstract DataDomain minus(DataDomain d);
 	/** Return this * s **/
-	public DataDomain multipliedBy(Number s);
+	public abstract DataDomain multipliedBy(Number s);
 	/** Return this / s **/
-	public DataDomain dividedBy(Number s);
+	public abstract DataDomain dividedBy(Number s);
+	/** Return inner product of this and d **/
+	public abstract Number innerProduct(DataDomain d);
+	/** Return squared norm **/
+	public abstract Number norm2();
+	/** Return norm **/
+	public abstract Number norm();
 	
 }
 

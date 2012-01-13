@@ -1,6 +1,6 @@
 package Jcg.geometry;
 
-public class Dim_d implements DataDomain {
+public class Dim_d extends DataDomain {
 
 	protected double[] x;
 	
@@ -8,6 +8,7 @@ public class Dim_d implements DataDomain {
 	public Dim_d() {
 		this.x = new double[0];
 	}
+	public static Dim_d constructor() { return new Dim_d(); }
 
 	/** Create data with dim coordinates set to 0 **/
 	public Dim_d(int dim) {
@@ -64,7 +65,7 @@ public class Dim_d implements DataDomain {
 		for (int i = 0; i < x.length; i++) x[i] = d.getCartesian(i).doubleValue();
 	}
 
-	public DataDomain copy() {
+	public Dim_d copy() {
 		return new Dim_d(this);
 	}
 
@@ -84,27 +85,54 @@ public class Dim_d implements DataDomain {
 		for (int i = 0; i < x.length; i++) x[i] /= s.doubleValue();
 	}
 
-	public DataDomain plus(DataDomain d) {
+	public Dim_d plus(DataDomain d) {
 		Dim_d r = new Dim_d(this);
 		r.add(d);
 		return r;
 	}
 
-	public DataDomain minus(DataDomain d) {
+	public Dim_d minus(DataDomain d) {
 		Dim_d r = new Dim_d(this);
 		r.take(d);
 		return r;
 	}
 
-	public DataDomain multipliedBy(Number s) {
+	public Dim_d multipliedBy(Number s) {
 		Dim_d r = new Dim_d(this);
 		r.multiplyBy(s);
 		return r;
 	}
 
-	public DataDomain dividedBy(Number s) {
+	public Dim_d dividedBy(Number s) {
 		Dim_d r = new Dim_d(this);
 		r.divideBy(s);
+		return r;
+	}
+
+	
+	public Number innerProduct(DataDomain d) {
+		double r = 0;
+		for (int i = 0; i < x.length; i++) r += x[i]*d.getCartesian(i).doubleValue();
+		return r;
+	}
+	
+	public Number norm() {
+		double r = 0;
+		for (int i = 0; i < x.length; i++) r += x[i]*x[i];
+		return Math.sqrt(r);
+	}
+
+	public Number norm2() {
+		double r = 0;
+		for (int i = 0; i < x.length; i++) r += x[i]*x[i];
+		return r;
+	}
+
+
+	public String toString() {
+		if (x.length == 0) return "";
+		String r = ""+x[0];
+		for (int i = 1; i < x.length; i++) r += ","+x[i];
 		return r;
 	}
 

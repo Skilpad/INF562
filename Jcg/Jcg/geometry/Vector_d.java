@@ -1,8 +1,7 @@
 package Jcg.geometry;
 
-public class Vector_d implements Vector_{
+public class Vector_d extends Vector_<Dim_d>{
 
-	public Double[] coordinates;
 
 	
 	//****************
@@ -10,148 +9,59 @@ public class Vector_d implements Vector_{
 	//****************
 	
 	/** Create vector 0 of d coordinates **/
-	public Vector_d(int d) { coordinates = new Double[d]; for (int c = 0; c < dimension(); c++) coordinates[c] = 0.; }
+	public Vector_d(int d) { data = new Dim_d(d); }
 
 	/** Create vector with coordinates given by coord **/
-	public Vector_d(double[] coord) { 
-		coordinates = new Double[coord.length];
-		for (int c = 0; c < dimension(); c++) coordinates[c] = coord[c];
-	}
+	public Vector_d(double[] coord) { data = new Dim_d(coord); }
 
 	/** Create vector from->to ( <=> to.minus(from) ) **/
-	public Vector_d(Point_d from, Point_d to) { 
-		coordinates = new Double[from.dimension()];
-		for (int c = 0; c < dimension(); c++) coordinates[c] = to.getCartesian(c).doubleValue() - from.getCartesian(c).doubleValue();
-	}
+	public Vector_d(Point_d from, Point_d to) { this.data = to.data.minus(from.data); }
+	
+	/** Create a copy **/
+	public Vector_d(Vector_d v) { this.data = v.data.copy(); }
 
 	
-	//************
-	//  Calculus 
-	//************
-
-	public Vector_d sum(Vector_ v) {
-		double r[] = new double[coordinates.length];
-		for (int i = 0; i < coordinates.length; i++) r[i] = coordinates[i]+v.getCartesian(i).doubleValue();
-		return new Vector_d(r);
+	
+	
+	/** Return a copy **/
+	public Vector_d copy() {
+		return new Vector_d(this);
 	}
-
-	public Vector_d minus(Vector_ v) {
-		double r[] = new double[coordinates.length];
-		for (int i = 0; i < coordinates.length; i++) r[i] = coordinates[i]-v.getCartesian(i).doubleValue();
-		return new Vector_d(r);
+	
+	/** Return this+v **/
+	public Vector_d sum(Vector_d v) {
+		Vector_d r = this.copy(); r.add(v); return r;
 	}
-
-	public Vector_d difference(Vector_ v) {
-		double r[] = new double[coordinates.length];
-		for (int i = 0; i < coordinates.length; i++) r[i] = v.getCartesian(i).doubleValue()-coordinates[i];
-		return new Vector_d(r);
+	/** Return this+v **/
+	public Vector_d plus(Vector_d v) {
+		Vector_d r = this.copy(); r.add(v); return r;
 	}
-
+	/** Return this-v **/
+	public Vector_d minus(Vector_d v) {
+		Vector_d r = this.copy(); r.take(v); return r;
+	}
+	/** Return v-this **/
+	public Vector_d difference(Vector_d v) {
+		Vector_d r = v.copy(); r.take(this); return r;
+	}
+	/** Return -this **/
 	public Vector_d opposite() {
-		double r[] = new double[coordinates.length];
-		for (int i = 0; i < coordinates.length; i++) r[i] = -coordinates[i];
-		return new Vector_d(r);
+		Vector_d r = this.copy(); r.multiplyBy(-1); return r;
 	}
-
+	/** Return this/s **/
 	public Vector_d divisionByScalar(Number s) {
-		double r[] = new double[coordinates.length];
-		double s_ = s.doubleValue();
-		for (int i = 0; i < coordinates.length; i++) r[i] = coordinates[i]/s_;
-		return new Vector_d(r);
+		Vector_d r = this.copy(); r.divideBy(s); return r;
 	}
-
+	/** Return this*s **/
 	public Vector_d multiplyByScalar(Number s) {
-		double r[] = new double[coordinates.length];
-		double s_ = s.doubleValue();
-		for (int i = 0; i < coordinates.length; i++) r[i] = s_*coordinates[i];
-		return new Vector_d(r);
+		Vector_d r = this.copy(); r.multiplyBy(s); return r;
 	}
-
-	public Number innerProduct(Vector_ v) {
-		double r = 0;
-		for (int i = 0; i < coordinates.length; i++) r += coordinates[i]*v.getCartesian(i).doubleValue();
-		return r;
-	}
-
-	public Number squaredLength() {
-		double r = 0;
-		for (int i = 0; i < coordinates.length; i++) r += coordinates[i]*coordinates[i];
-		return r;
-	}
-	
-	public Number length() {
-		double r = 0;
-		for (int i = 0; i < coordinates.length; i++) r += coordinates[i]*coordinates[i];
-		return Math.sqrt(r);
-	}
-
+	/** Return the normalized vector **/
 	public Vector_d normalized() {
-		return this.divisionByScalar(this.length());
-	}
-	
-
-	
-	//**********
-	//  Modify
-	//**********
-	
-	public void add(Vector_ v) {
-		for (int i = 0; i < coordinates.length; i++) coordinates[i] += v.getCartesian(i).doubleValue();
-	}
-
-	public void take(Vector_ v) {
-		for (int i = 0; i < coordinates.length; i++) coordinates[i] -= v.getCartesian(i).doubleValue();
-	}
-
-	public void multiplyBy(Number s) {
-		for (int i = 0; i < coordinates.length; i++) coordinates[i] *= s.doubleValue();
-	}
-
-	public void divideBy(Number s) {
-		for (int i = 0; i < coordinates.length; i++) coordinates[i] /= s.doubleValue();
-	}
-
-	public void normalize() {
-		this.divideBy(this.length());
+		return divisionByScalar(data.norm());
 	}
 
 	
-	
-	
-	//*************
-	//  Accessors 
-	//*************
-	
-	public int dimension() { return coordinates.length;}
-
-	public Number getCartesian(int i) {
-		return this.coordinates[i];
-	} 
-	public void setCartesian(int i, Number x) {
-		this.coordinates[i]=x.doubleValue();
-	}
-
-	
-	//************
-	
-	public boolean equals(Object o) { 
-		Vector_ v = (Vector_) o;
-		for(int i=0;i<dimension();i++) {
-			if (! this.coordinates[i].equals(v.getCartesian(i)))
-				return false;
-		}
-		return true;
-	}
-
-	public String toString() {
-		String result="[";
-		for(int i=0;i<dimension()-1;i++)
-			result=result+this.getCartesian(i)+",";
-		return result+this.getCartesian(dimension()-1)+"]";
-	}
-
-
-
 }
 
 

@@ -28,7 +28,7 @@ public class Point_D extends Point_d{
 	   * Return the i-th coordinate of the point 
 	   */
 	  public double Cartesian(int i) {
-		  return this.coordinates[i];
+		  return this.getCartesian(i).doubleValue();
 	  }
 
 	   /*

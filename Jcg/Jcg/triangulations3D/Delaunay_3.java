@@ -55,7 +55,7 @@ public class Delaunay_3 {
 		// later we should handle conflicts with infinite cells more carefully
 		if (1e6*v > ref) {
 			for (int i=0; i<8; i++)
-				boundingBox[i].multiply(1e6*v/ref);
+				boundingBox[i].getData().multiplyBy(1e6*v/ref);
 		}
 	}
 

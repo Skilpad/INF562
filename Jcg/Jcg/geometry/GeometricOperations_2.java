@@ -27,12 +27,12 @@ public class GeometricOperations_2 {
      *
      */
     public static Point_2 circumCenter (Point_2 p0, Point_2 p1, Point_2 p2) {
-    	double ex=p1.x-p0.x, ey=p1.y-p0.y;
-    	double nx=p2.y-p1.y, ny=p1.x-p2.x;
-    	double dx=(p0.x-p2.x)*0.5, dy=(p0.y-p2.y)*0.5;
+    	double ex=p1.x()-p0.x(), ey=p1.y()-p0.y();
+    	double nx=p2.y()-p1.y(), ny=p1.x()-p2.x();
+    	double dx=(p0.x()-p2.x())*0.5, dy=(p0.y()-p2.y())*0.5;
     	double s=(ex*dx+ey*dy)/(ex*nx+ey*ny);
-    	double cx=(p1.x+p2.x)*0.5+s*nx;
-    	double cy=(p1.y+p2.y)*0.5+s*ny;
+    	double cx=(p1.x()+p2.x())*0.5+s*nx;
+    	double cy=(p1.y()+p2.y())*0.5+s*ny;
     	return new Point_2( cx, cy );
     }
 
@@ -44,13 +44,13 @@ public class GeometricOperations_2 {
      * @return the distance of p to [ps,pe]
      */
     public static Number distanceToSegment(Point_2 ps, Point_2 pe, Point_2 p) {
-    	if (ps.x==pe.x && ps.y==pe.y) return ps.squareDistance(p);
+    	if (ps.x()==pe.x() && ps.y()==pe.y()) return ps.squareDistance(p);
     	
-    	double sx=pe.x-ps.x;
-    	double sy=pe.y-ps.y;
+    	double sx=pe.x()-ps.x();
+    	double sy=pe.y()-ps.y();
     	
-    	double ux=p.x-ps.x;
-    	double uy=p.y-ps.y;
+    	double ux=p.x()-ps.x();
+    	double uy=p.y()-ps.y();
     	
     	double dp=sx*ux+sy*uy;
     	if (dp<0) return ps.squareDistance(p);
@@ -59,8 +59,8 @@ public class GeometricOperations_2 {
     	if (dp>sn) return pe.squareDistance(p);
     	
     	double ratio = (double)dp/sn;
-    	double projx = (ps.x + ratio*sx);
-    	double projy = (ps.y + ratio*sy);
+    	double projx = (ps.x() + ratio*sx);
+    	double projy = (ps.y() + ratio*sy);
     	
     	return p.squareDistance(new Point_2(projx,projy));
     }
@@ -76,19 +76,19 @@ public class GeometricOperations_2 {
      * the java.util.BigDecimal class)
      */
     public static boolean isCounterClockwise(Point_2 a, Point_2 b, Point_2 c) {
-    	double det = Algebra.det33(new double[] {a.x, a.y, 1, b.x, b.y, 1, c.x, c.y, 1});
+    	double det = Algebra.det33(new double[] {a.x(), a.y(), 1, b.x(), b.y(), 1, c.x(), c.y(), 1});
     	if (det > epsilon2)
     		return true;
     	else if (det < -epsilon2)
     		return false;
 
     	// else perform exact computation
-    	BigDecimal ax = BigDecimal.valueOf(a.x);
-    	BigDecimal ay = BigDecimal.valueOf(a.y);
-    	BigDecimal bx = BigDecimal.valueOf(b.x);
-    	BigDecimal by = BigDecimal.valueOf(b.y);
-    	BigDecimal cx = BigDecimal.valueOf(c.x);
-    	BigDecimal cy = BigDecimal.valueOf(c.y);
+    	BigDecimal ax = BigDecimal.valueOf(a.x());
+    	BigDecimal ay = BigDecimal.valueOf(a.y());
+    	BigDecimal bx = BigDecimal.valueOf(b.x());
+    	BigDecimal by = BigDecimal.valueOf(b.y());
+    	BigDecimal cx = BigDecimal.valueOf(c.x());
+    	BigDecimal cy = BigDecimal.valueOf(c.y());
 
     	return AlgebraExact.det33 (new BigDecimal[] {ax, ay, BigDecimal.valueOf(1),
     			bx, by, BigDecimal.valueOf(1), 
@@ -105,17 +105,17 @@ public class GeometricOperations_2 {
     * the java.util.BigDecimal class)
     */
    public static boolean collinear(Point_2 a, Point_2 b, Point_2 c) {
-   	double det = Algebra.det33(new double[] {a.x, a.y, 1, b.x, b.y, 1, c.x, c.y, 1});
+   	double det = Algebra.det33(new double[] {a.x(), a.y(), 1, b.x(), b.y(), 1, c.x(), c.y(), 1});
    	if (Math.abs(det) > epsilon2)
    		return false;
 
    	// else perform exact computation
-   	BigDecimal ax = BigDecimal.valueOf(a.x);
-   	BigDecimal ay = BigDecimal.valueOf(a.y);
-   	BigDecimal bx = BigDecimal.valueOf(b.x);
-   	BigDecimal by = BigDecimal.valueOf(b.y);
-   	BigDecimal cx = BigDecimal.valueOf(c.x);
-   	BigDecimal cy = BigDecimal.valueOf(c.y);
+   	BigDecimal ax = BigDecimal.valueOf(a.x());
+   	BigDecimal ay = BigDecimal.valueOf(a.y());
+   	BigDecimal bx = BigDecimal.valueOf(b.x());
+   	BigDecimal by = BigDecimal.valueOf(b.y());
+   	BigDecimal cx = BigDecimal.valueOf(c.x());
+   	BigDecimal cy = BigDecimal.valueOf(c.y());
 
    	return AlgebraExact.det33 (new BigDecimal[] {ax, ay, BigDecimal.valueOf(1),
    			bx, by, BigDecimal.valueOf(1), 
@@ -134,11 +134,11 @@ public class GeometricOperations_2 {
      * the java.util.BigDecimal class)
      */
     public static boolean inCircle(Point_2 p, Point_2 a, Point_2 b, Point_2 c) {
-	double a2 = a.x*a.x + a.y*a.y;
-	double b2 = b.x*b.x + b.y*b.y;
-	double c2 = c.x*c.x + c.y*c.y;
-	double p2 = p.x*p.x + p.y*p.y;
-	double det44 = Algebra.det44 (new double[] {a.x, a.y, a2, 1, b.x, b.y, b2, 1, c.x, c.y, c2, 1, p.x, p.y, p2, 1});
+	double a2 = a.x()*a.x() + a.y()*a.y();
+	double b2 = b.x()*b.x() + b.y()*b.y();
+	double c2 = c.x()*c.x() + c.y()*c.y();
+	double p2 = p.x()*p.x() + p.y()*p.y();
+	double det44 = Algebra.det44 (new double[] {a.x(), a.y(), a2, 1, b.x(), b.y(), b2, 1, c.x(), c.y(), c2, 1, p.x(), p.y(), p2, 1});
 
 	if (det44 < -epsilon3) 
 	    return true;
@@ -146,14 +146,14 @@ public class GeometricOperations_2 {
 		return false;
 
 	// else use exact computation
-	BigDecimal ax = BigDecimal.valueOf(a.x);
-	BigDecimal ay = BigDecimal.valueOf(a.y);
-	BigDecimal bx = BigDecimal.valueOf(b.x);
-	BigDecimal by = BigDecimal.valueOf(b.y);
-	BigDecimal cx = BigDecimal.valueOf(c.x);
-	BigDecimal cy = BigDecimal.valueOf(c.y);
-	BigDecimal px = BigDecimal.valueOf(p.x);
-	BigDecimal py = BigDecimal.valueOf(p.y);
+	BigDecimal ax = BigDecimal.valueOf(a.x());
+	BigDecimal ay = BigDecimal.valueOf(a.y());
+	BigDecimal bx = BigDecimal.valueOf(b.x());
+	BigDecimal by = BigDecimal.valueOf(b.y());
+	BigDecimal cx = BigDecimal.valueOf(c.x());
+	BigDecimal cy = BigDecimal.valueOf(c.y());
+	BigDecimal px = BigDecimal.valueOf(p.x());
+	BigDecimal py = BigDecimal.valueOf(p.y());
 	BigDecimal ba2 = ax.multiply(ax).add(ay.multiply(ay));
 	BigDecimal bb2 = bx.multiply(bx).add(by.multiply(by));
 	BigDecimal bc2 = cx.multiply(cx).add(cy.multiply(cy));
@@ -253,12 +253,12 @@ public class GeometricOperations_2 {
     /* If ab not vertical, check betweenness on x; else on y. */
     if(collinear(p,a,b)==false)
     	return false;
-    if ( a.x != b.x )
-      return ((a.x <= p.x) && (p.x <= b.x)) ||
-			 ((a.x >= p.x) && (p.x >= b.x));
+    if ( a.x() != b.x() )
+      return ((a.x() <= p.x()) && (p.x() <= b.x())) ||
+			 ((a.x() >= p.x()) && (p.x() >= b.x()));
     else
-      return ((a.y <= p.y) && (p.y <= b.y)) ||
-			 ((a.y >= p.y) && (p.y >= b.y));
+      return ((a.y() <= p.y()) && (p.y() <= b.y())) ||
+			 ((a.y() >= p.y()) && (p.y() >= b.y()));
   }
 
     

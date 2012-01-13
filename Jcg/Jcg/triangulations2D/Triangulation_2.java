@@ -104,18 +104,18 @@ public class Triangulation_2 {
 		double y_max = ((maxy-centery+1)*10+centery);
  
 		// set new positions
-		bbox.a.x = x_min;	bbox.a.y = y_min;
-		bbox.b.x = x_max;	bbox.b.y = y_min;
-		bbox.c.x = x_max;	bbox.c.y = y_max;
-		bbox.d.x = x_min;	bbox.d.y = y_max;
+		bbox.a.x(x_min);	bbox.a.y(y_min);
+		bbox.b.x(x_max);	bbox.b.y(y_min);
+		bbox.c.x(x_max);	bbox.c.y(y_max);
+		bbox.d.x(x_min);	bbox.d.y(y_max);
 	}
  
 	// update the size of the bounding box (cf locate() method)
 	protected void updateBoundingBox(Point_2 p) {
-		double minx = Math.min(bbox.minx, p.x);
-		double maxx = Math.max(bbox.maxx, p.x);
-		double miny = Math.min(bbox.miny, p.y);
-		double maxy = Math.max(bbox.maxy, p.y);
+		double minx = Math.min(bbox.minx, p.x());
+		double maxx = Math.max(bbox.maxx, p.x());
+		double miny = Math.min(bbox.miny, p.y());
+		double maxy = Math.max(bbox.maxy, p.y());
 		setBoundingBox(minx, miny, maxx, maxy);
 //		System.out.println("resizing bounding-box: "+minx+" "+miny+" "+maxx+" "+maxy);
 	}
@@ -129,7 +129,7 @@ public class Triangulation_2 {
 	public TriangulationDSFace_2<Point_2> locate(Point_2 p) {
  
 		/* outside the bounding box ? */
-		if ( p.x<bbox.minx || p.x>bbox.maxx || p.y<bbox.miny || p.y>bbox.maxy ) {
+		if ( p.x()<bbox.minx || p.x()>bbox.maxx || p.y()<bbox.miny || p.y()>bbox.maxy ) {
 			updateBoundingBox(p);
 		}
  

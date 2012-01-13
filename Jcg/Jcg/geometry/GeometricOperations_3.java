@@ -58,25 +58,25 @@ public class GeometricOperations_3 {
      */
     public static int orientation(Point_3 a, Point_3 b, Point_3 c, Point_3 d) {
     	// Note: we multiply det by -1 because positive orientation <=> negative determinant in odd dimensions
-    	double det = -Algebra.det44(new double[] {a.x, a.y, a.z, 1, b.x, b.y, b.z, 1, c.x, c.y, c.z, 1, d.x, d.y, d.z, 1});
+    	double det = -Algebra.det44(new double[] {a.x(), a.y(), a.z(), 1, b.x(), b.y(), b.z(), 1, c.x(), c.y(), c.z(), 1, d.x(), d.y(), d.z(), 1});
     	if (det > epsilon3)
     		return 1;
     	else if (det < -epsilon3)
     		return -1;
     	
     	// else perform exact computation
-    	BigDecimal ax = BigDecimal.valueOf(a.x);
-    	BigDecimal ay = BigDecimal.valueOf(a.y);
-    	BigDecimal az = BigDecimal.valueOf(a.z);
-    	BigDecimal bx = BigDecimal.valueOf(b.x);
-    	BigDecimal by = BigDecimal.valueOf(b.y);
-    	BigDecimal bz = BigDecimal.valueOf(b.z);
-    	BigDecimal cx = BigDecimal.valueOf(c.x);
-    	BigDecimal cy = BigDecimal.valueOf(c.y);
-    	BigDecimal cz = BigDecimal.valueOf(c.z);
-    	BigDecimal dx = BigDecimal.valueOf(d.x);
-    	BigDecimal dy = BigDecimal.valueOf(d.y);
-    	BigDecimal dz = BigDecimal.valueOf(d.z);
+    	BigDecimal ax = BigDecimal.valueOf(a.x());
+    	BigDecimal ay = BigDecimal.valueOf(a.y());
+    	BigDecimal az = BigDecimal.valueOf(a.z());
+    	BigDecimal bx = BigDecimal.valueOf(b.x());
+    	BigDecimal by = BigDecimal.valueOf(b.y());
+    	BigDecimal bz = BigDecimal.valueOf(b.z());
+    	BigDecimal cx = BigDecimal.valueOf(c.x());
+    	BigDecimal cy = BigDecimal.valueOf(c.y());
+    	BigDecimal cz = BigDecimal.valueOf(c.z());
+    	BigDecimal dx = BigDecimal.valueOf(d.x());
+    	BigDecimal dy = BigDecimal.valueOf(d.y());
+    	BigDecimal dz = BigDecimal.valueOf(d.z());
     	
     	BigDecimal[] m=new BigDecimal[16];
     	m[0]=ax; m[1]=ay; m[2]=az; m[3]=BigDecimal.valueOf(1.0);
@@ -94,11 +94,11 @@ public class GeometricOperations_3 {
      * with exact computations (slow but more reliable)
      */
      public static int sideOfSphere(Point_3 p, Point_3 a, Point_3 b, Point_3 c, Point_3 d) {
-     	double det = Algebra.det55(new double[] {p.x, p.y, p.z, p.x*p.x+p.y*p.y+p.z*p.z, 1,
-     			a.x, a.y, a.z, a.x*a.x+a.y*a.y+a.z*a.z, 1, 
-     			b.x, b.y, b.z, b.x*b.x+b.y*b.y+b.z*b.z, 1, 
-     			c.x, c.y, c.z, c.x*c.x+c.y*c.y+c.z*c.z, 1, 
-     			d.x, d.y, d.z, d.x*d.x+d.y*d.y+d.z*d.z, 1});
+     	double det = Algebra.det55(new double[] {p.x(), p.y(), p.z(), p.x()*p.x()+p.y()*p.y()+p.z()*p.z(), 1,
+     			a.x(), a.y(), a.z(), a.x()*a.x()+a.y()*a.y()+a.z()*a.z(), 1, 
+     			b.x(), b.y(), b.z(), b.x()*b.x()+b.y()*b.y()+b.z()*b.z(), 1, 
+     			c.x(), c.y(), c.z(), c.x()*c.x()+c.y()*c.y()+c.z()*c.z(), 1, 
+     			d.x(), d.y(), d.z(), d.x()*d.x()+d.y()*d.y()+d.z()*d.z(), 1});
 //     	System.out.println("det=" + det);
      	if (det > epsilon4)
     		return orientation(a,b,c,d);
@@ -107,25 +107,25 @@ public class GeometricOperations_3 {
 
     	
     	// else perform exact computation
-     	BigDecimal px = BigDecimal.valueOf(p.x);
-    	BigDecimal py = BigDecimal.valueOf(p.y);
-    	BigDecimal pz = BigDecimal.valueOf(p.z);
+     	BigDecimal px = BigDecimal.valueOf(p.x());
+    	BigDecimal py = BigDecimal.valueOf(p.y());
+    	BigDecimal pz = BigDecimal.valueOf(p.z());
     	BigDecimal pt = (px.multiply(px)).add(py.multiply(py)).add(pz.multiply(pz));
-    	BigDecimal ax = BigDecimal.valueOf(a.x);
-    	BigDecimal ay = BigDecimal.valueOf(a.y);
-    	BigDecimal az = BigDecimal.valueOf(a.z);
+    	BigDecimal ax = BigDecimal.valueOf(a.x());
+    	BigDecimal ay = BigDecimal.valueOf(a.y());
+    	BigDecimal az = BigDecimal.valueOf(a.z());
     	BigDecimal at = (ax.multiply(ax)).add(ay.multiply(ay)).add(az.multiply(az));
-    	BigDecimal bx = BigDecimal.valueOf(b.x);
-    	BigDecimal by = BigDecimal.valueOf(b.y);
-    	BigDecimal bz = BigDecimal.valueOf(b.z);
+    	BigDecimal bx = BigDecimal.valueOf(b.x());
+    	BigDecimal by = BigDecimal.valueOf(b.y());
+    	BigDecimal bz = BigDecimal.valueOf(b.z());
     	BigDecimal bt = (bx.multiply(bx)).add(by.multiply(by)).add(bz.multiply(bz));
-    	BigDecimal cx = BigDecimal.valueOf(c.x);
-    	BigDecimal cy = BigDecimal.valueOf(c.y);
-    	BigDecimal cz = BigDecimal.valueOf(c.z);
+    	BigDecimal cx = BigDecimal.valueOf(c.x());
+    	BigDecimal cy = BigDecimal.valueOf(c.y());
+    	BigDecimal cz = BigDecimal.valueOf(c.z());
     	BigDecimal ct = (cx.multiply(cx)).add(cy.multiply(cy)).add(cz.multiply(cz));
-    	BigDecimal dx = BigDecimal.valueOf(d.x);
-    	BigDecimal dy = BigDecimal.valueOf(d.y);
-    	BigDecimal dz = BigDecimal.valueOf(d.z);
+    	BigDecimal dx = BigDecimal.valueOf(d.x());
+    	BigDecimal dy = BigDecimal.valueOf(d.y());
+    	BigDecimal dz = BigDecimal.valueOf(d.z());
     	BigDecimal dt = (dx.multiply(dx)).add(dy.multiply(dy)).add(dz.multiply(dz));
 
     	BigDecimal[] m=new BigDecimal[25];

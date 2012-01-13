@@ -1,6 +1,6 @@
 package Jcg.geometry;
 
-public class Dim_3 extends Dim_2 implements DataDomain {
+public class Dim_3 extends Dim_2 {
 
 	protected double z;
 	
@@ -8,6 +8,7 @@ public class Dim_3 extends Dim_2 implements DataDomain {
 	public Dim_3() {
 		this.x = 0.; this.y = 0.; this.z = 0;
 	}
+	public static Dim_3 constructor() { return new Dim_3(); }
 
 	/** Create (x,y,z) **/
 	public Dim_3(double x, double y, double z) {
@@ -78,7 +79,7 @@ public class Dim_3 extends Dim_2 implements DataDomain {
 	}
 
 	
-	public DataDomain copy() {
+	public Dim_3 copy() {
 		return new Dim_3(x,y,z);
 	}
 
@@ -111,31 +112,49 @@ public class Dim_3 extends Dim_2 implements DataDomain {
 	}
 
 	
-	public DataDomain plus(DataDomain d) {
+	public Dim_3 plus(DataDomain d) {
 		return new Dim_3(x + d.getCartesian(0).doubleValue(),
 						 y + d.getCartesian(1).doubleValue(),
 						 z + d.getCartesian(2).doubleValue());
 	}
 
 	
-	public DataDomain minus(DataDomain d) {
+	public Dim_3 minus(DataDomain d) {
 		return new Dim_3(x - d.getCartesian(0).doubleValue(),
 						 y - d.getCartesian(1).doubleValue(),
 						 z - d.getCartesian(2).doubleValue());
 	}
 
 	
-	public DataDomain multipliedBy(Number s) {
+	public Dim_3 multipliedBy(Number s) {
 		return new Dim_3(x * s.doubleValue(),
 				 		 y * s.doubleValue(),
 						 z * s.doubleValue());
 	}
 
 	
-	public DataDomain dividedBy(Number s) {
+	public Dim_3 dividedBy(Number s) {
 		return new Dim_3(x / s.doubleValue(),
 		 		 		 y / s.doubleValue(),
 		 		 		 z / s.doubleValue());
+	}
+
+
+	public Number innerProduct(DataDomain d) {
+		return x*d.getCartesian(0).doubleValue() + y*d.getCartesian(1).doubleValue() + z*getCartesian(2).doubleValue();
+	}
+	
+	public Number norm() {
+		return Math.sqrt(x*x+y*y+z*z);
+	}
+	
+	public Number norm2() {
+		return (x*x+y*y+z*z);
+	}
+	
+
+	public String toString() {
+		return x +","+ y+","+z;
 	}
 
 }

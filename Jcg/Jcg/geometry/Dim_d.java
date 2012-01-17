@@ -24,7 +24,7 @@ public class Dim_d extends DataDomain {
 	/** Create a copy of d **/
 	public Dim_d(DataDomain d) {
 		this.x = new double[d.dimension()];
-		for (int i = 0; i < this.x.length; i++) this.x[i] = d.getCartesian(1).doubleValue();
+		for (int i = 0; i < this.x.length; i++) this.x[i] = d.getCartesian(i).doubleValue();
 	}
 	
 	public int compareTo(DataDomain d) {

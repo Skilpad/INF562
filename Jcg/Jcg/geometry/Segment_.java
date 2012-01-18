@@ -49,5 +49,13 @@ public class Segment_<X extends Kernel> implements Segment_interface<X>{
 		return source.dimension();
 	}
 
+	public Point_<X> source() { return source; }
+	public Point_<X> target() { return target; }
+
+	/** Set source (without copy) **/
+	public void source(Point_<X> X) { source = X; }
+	/** Set target (without copy) **/
+	public void target(Point_<X> X) { target = X; }
+
 
 }

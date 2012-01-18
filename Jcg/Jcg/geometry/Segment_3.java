@@ -55,6 +55,18 @@ public class Segment_3 implements Segment_interface<Kernel_3> {
 	}
 
 	
+	public Point_3 source() { return source; }
+	public Point_3 target() { return target; }
+	
+	/** Set source (without copy) **/
+	public void source(Point_3 X) { source = X; }
+	/** Set target (without copy) **/
+	public void target(Point_3 X) { target = X; }
+	/** Set source (with copy) **/
+	public void source(Point_<Kernel_3> X) { source = new Point_3(X); }
+	/** Set target (with copy) **/
+	public void target(Point_<Kernel_3> X) { target = new Point_3(X); }
+	
 }
 
 

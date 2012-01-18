@@ -53,6 +53,19 @@ public class Segment_2 implements Segment_interface<Kernel_2> {
 	public int dimension() {
 		return source.dimension();
 	}
+	
+	
+	public Point_2 source() { return source; }
+	public Point_2 target() { return target; }
+	
+	/** Set source (without copy) **/
+	public void source(Point_2 X) { source = X; }
+	/** Set target (without copy) **/
+	public void target(Point_2 X) { target = X; }
+	/** Set source (with copy) **/
+	public void source(Point_<Kernel_2> X) { source = new Point_2(X); }
+	/** Set target (with copy) **/
+	public void target(Point_<Kernel_2> X) { target = new Point_2(X); }
 
 }
 

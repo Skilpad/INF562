@@ -11,7 +11,7 @@ public class Vector_<X extends Kernel>  {
 	public Vector_(Vector_<X> p) { this.data = (X) p.data.copy(); }
 	
 	/** Create vector from->to ( <=> to.minus(from) ) **/
-	public Vector_(Point_2 from, Point_2 to) { this.data = (X) to.data.minus(from.data); }
+	public Vector_(Point_<X> from, Point_<X> to) { this.data = (X) to.data.minus(from.data); }
 	
 	
 	
@@ -34,6 +34,11 @@ public class Vector_<X extends Kernel>  {
 		data.setCartesian(i, x);
 	}
 
+	/** Tests if colinear **/
+	public boolean colinearTo(Vector_<X> v) {
+		throw new Error("To complete");   // TODO
+	}
+	
 	public boolean equals(Object v) {
 		return data.equals(v);
 	}

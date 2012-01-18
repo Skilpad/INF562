@@ -1,58 +1,59 @@
 package Jcg.geometry;
 
-public class Segment_2 implements Segment_ {
-  public Point_2 p, q;
+public class Segment_2 implements Segment_interface<Kernel_2> {
 
-  public Segment_2() {}
-  
-  public Segment_2(Point_2 p, Point_2 q) { this.p=p; this.q=q; }
+	protected Point_2 source, target;
+	
+	/** Creates segment from source to target. (Will not copy source & target.) **/
+	public Segment_2(Point_2 source, Point_2 target) {
+		this.source = source; this.target = target;
+	}
+	/** Creates segment from source to target. (Will copy source & target.) **/
+	public Segment_2(Point_ source, Point_ target) {
+		this.source = new Point_2(source); this.target = new Point_2(target);
+	}
+	
+	/** Returns source if i=0, target otherwise. **/
+	public Point_2 vertex(int i) {
+		return (i==0) ? source : target;
+	}
 
-  public Point_ source() {return this.p; }
-  public Point_ target() {return this.q; }
-  public Point_ vertex(int i) {
-  	if(i==0)return this.p; 
-  	else return this.q;	
-  }
-  
-/**
- * returns the vector s.target() - s.source()
- */
-  public Vector_ toVector() {
-  	return new Vector_2 (this.p,this.q);
-  }
+	/** Returns the vector s.target() - s.source() **/
+	public Vector_2 toVector() {
+		return new Vector_2(source, target); 
+	}
 
-/**
- * returns a segment with source and target interchanged
- */
-  public Vector_ opposite() {
-  	return new Vector_2 (this.q,this.p);
-  }
-/**
- * returns the squared length
- */  
-  public Number squaredLength() {
-  	return toVector().squaredLength();  	
-  }
+	/** Returns segment with source and target interchanged **/
+	public Segment_2 opposite() {
+		return new Segment_2(target, source);
+	}
 
-/**
- * A point is on s, 
- * iff it is equal to the source or target of s, 
- * or if it is in the interior of s
- */  
-  public boolean hasOn(Point_ p) {
-  	throw new Error("A completer");
-  }
+	/** Returns squared length **/
+	public Number squaredLength() {
+		return source.squareDistance(target);
+	}
 
-/** 
- * segment s is degenerate, if source and target fall together
- */  
-  public boolean isDegenerate() {
-  	return this.squaredLength().doubleValue()==0.;
-  }
-    
-  public String toString() {return "["+p+","+q+"]"; }
-  public int dimension() { return 2;}
-  
+	/**
+	 * A point is on s, 
+	 * iff it is equal to the source or target of s, 
+	 * or if it is in the interior of s
+	 */  
+	public boolean hasOn(Point_ p) {
+		throw new Error("A completer");
+		// TODO
+	}
+
+	/** Segment s is degenerate, if source and target fall together **/
+	public boolean isDegenerate() {
+		return source.equals(target);
+	}
+
+	public String toString() {return "[ "+source+" , "+target+" ]"; }
+
+	public int dimension() {
+		return source.dimension();
+	}
+
 }
 
 

@@ -31,7 +31,7 @@ public class GeometricOperations_3 {
      *
      */
     public static boolean doIntersect(Segment_3 s, Triangle_3 t) {
-    	Point_3 p = (Point_3) s.source(), q = (Point_3) s.target();
+    	Point_3 p = (Point_3) s.source, q = (Point_3) s.target;
     	Point_3 a = t.vertex(0), b = t.vertex(1), c = t.vertex(2);
     	int orientabcp = orientation(a,b,c,p);
     	int orientabcq = orientation(a,b,c,q);

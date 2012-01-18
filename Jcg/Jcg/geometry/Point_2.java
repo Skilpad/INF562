@@ -1,13 +1,13 @@
 package Jcg.geometry;
 
-public class Point_2 extends Point_<Dim_2>{
+public class Point_2 extends Point_<Kernel_2>{
 
 	
 	
 	/** Return x **/
-	public Number getX() { return data.getX(); }
+	public Double getX() { return data.getX(); }
 	/** Return y **/
-	public Number getY() { return data.getY(); }
+	public Double getY() { return data.getY(); }
 	
 	/** Set X **/
 	public void setX(Number x) { data.setX(x.doubleValue()); }
@@ -30,17 +30,17 @@ public class Point_2 extends Point_<Dim_2>{
 	//****************
 	
 	/** Creates (0,0) point **/
-	public Point_2() { this.data = new Dim_2(); }
+	public Point_2() { this.data = new Kernel_2(); }
 
 	/** Creates (x,y) point **/
-	public Point_2(Number x,Number y) { this.data = new Dim_2(x.doubleValue(),y.doubleValue()); }
+	public Point_2(Number x,Number y) { this.data = new Kernel_2(x.doubleValue(),y.doubleValue()); }
 
 	/** Creates a point with current values of p coordinates **/
-	public Point_2(Point_ p) { this.data = new Dim_2(p.data); }
+	public Point_2(Point_ p) { this.data = new Kernel_2(p.data); }
 
 	/** Creates the barycenter of points **/
 	public Point_2(Point_[] points) {
-		this.data = new Dim_2();
+		this.data = new Kernel_2();
 		this.barycenter(points);
 	}
 	

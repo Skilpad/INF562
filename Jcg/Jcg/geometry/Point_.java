@@ -1,6 +1,6 @@
 package Jcg.geometry;
 
-public class Point_<X extends DataDomain> implements Comparable<Point_> {
+public class Point_<X extends Kernel> implements Comparable<Point_> {
 	
 	protected X data;
 	
@@ -21,7 +21,7 @@ public class Point_<X extends DataDomain> implements Comparable<Point_> {
 	@Deprecated
 	/** !!! DO NOT USE !!! 
 	 *  Unsafe for work. Designed for package implementation. **/
-	public DataDomain getData() { return data; }
+	public Kernel getData() { return data; }
 	
 	/** Return the i-th coordinate **/
 	public Number getCartesian(int i) { 

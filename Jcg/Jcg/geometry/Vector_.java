@@ -1,6 +1,6 @@
 package Jcg.geometry;
 
-public class Vector_<X extends DataDomain>  {
+public class Vector_<X extends Kernel>  {
 
 	protected X data;
 	
@@ -23,7 +23,7 @@ public class Vector_<X extends DataDomain>  {
 	@Deprecated
 	/** !!! DO NOT USE !!! 
 	 *  Unsafe for work. Designed for package implementation. **/
-	public DataDomain getData() { return data; }
+	public Kernel getData() { return data; }
 	
 	/** Get i-th coordinates **/
 	public Number getCartesian(int i) {

@@ -3,24 +3,24 @@ package Jcg.geometry;
 /*
  * Class for representing a point in d-dimension space 
  */
-public class Point_d extends Point_<Dim_d>{
+public class Point_d extends Point_<Kernel_d>{
 	
 	//****************
 	//  Constructors
 	//****************
 
 	/** Creates 0 point of d coordinates **/
-	public Point_d(int d) { this.data = new Dim_d(d); }
+	public Point_d(int d) { this.data = new Kernel_d(d); }
 
 	/** Creates point with coordinates given by coord **/
-	public Point_d(double[] coord) { this.data = new Dim_d(coord); }
+	public Point_d(double[] coord) { this.data = new Kernel_d(coord); }
 
 	/** Creates a Point_d with current values of p coordinates **/
-	public Point_d(Point_ p) { this.data = new Dim_d(p.data); }
+	public Point_d(Point_ p) { this.data = new Kernel_d(p.data); }
 
 	/** Creates the barycenter of points. The dimension is given by points[0]. **/
 	public Point_d(Point_[] points) {
-		this.data = new Dim_d(points[0].dimension());
+		this.data = new Kernel_d(points[0].dimension());
 		this.barycenter(points);
 	}
 

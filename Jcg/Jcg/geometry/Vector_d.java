@@ -1,6 +1,6 @@
 package Jcg.geometry;
 
-public class Vector_d extends Vector_<Dim_d>{
+public class Vector_d extends Vector_<Kernel_d>{
 
 
 	
@@ -9,10 +9,10 @@ public class Vector_d extends Vector_<Dim_d>{
 	//****************
 	
 	/** Create vector 0 of d coordinates **/
-	public Vector_d(int d) { data = new Dim_d(d); }
+	public Vector_d(int d) { data = new Kernel_d(d); }
 
 	/** Create vector with coordinates given by coord **/
-	public Vector_d(double[] coord) { data = new Dim_d(coord); }
+	public Vector_d(double[] coord) { data = new Kernel_d(coord); }
 
 	/** Create vector from->to ( <=> to.minus(from) ) **/
 	public Vector_d(Point_d from, Point_d to) { this.data = to.data.minus(from.data); }

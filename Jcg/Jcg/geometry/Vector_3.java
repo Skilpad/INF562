@@ -1,15 +1,15 @@
 package Jcg.geometry;
 
-public class Vector_3 extends Vector_<Dim_3> {
+public class Vector_3 extends Vector_<Kernel_3> {
 	
 	
 	
 	/** Return x **/
-	public Number getX() { return data.x; }
+	public Double getX() { return data.x; }
 	/** Return y **/
-	public Number getY() { return data.y; }
+	public Double getY() { return data.y; }
 	/** Return y **/
-	public Number getZ() { return data.z; }
+	public Double getZ() { return data.z; }
 	
 	/** Set X **/
 	public void setX(Number x) { data.x = x.doubleValue(); }
@@ -38,10 +38,10 @@ public class Vector_3 extends Vector_<Dim_3> {
 	//****************
 	
 	/** Create vector (0,0) **/
-	public Vector_3() { this.data = new Dim_3(); }
+	public Vector_3() { this.data = new Kernel_3(); }
 
 	/** Create vector (x,y) **/
-	public Vector_3(Number x,Number y,Number z) { this.data = new Dim_3(x.doubleValue(),y.doubleValue(),z.doubleValue()); }
+	public Vector_3(Number x,Number y,Number z) { this.data = new Kernel_3(x.doubleValue(),y.doubleValue(),z.doubleValue()); }
 
 	/** Create vector from->to ( <=> to.minus(from) ) **/
 	public Vector_3(Point_3 from, Point_3 to) { this.data = to.data.minus(from.data); }

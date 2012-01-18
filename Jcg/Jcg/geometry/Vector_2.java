@@ -1,12 +1,12 @@
 package Jcg.geometry;
 
-public class Vector_2 extends Vector_<Dim_2>{
+public class Vector_2 extends Vector_<Kernel_2>{
 
 	
 	/** Return x **/
-	public Number getX() { return data.x; }
+	public Double getX() { return data.x; }
 	/** Return y **/
-	public Number getY() { return data.y; }
+	public Double getY() { return data.y; }
 	
 	/** Set X **/
 	public void setX(Number x) { data.x = x.doubleValue(); }
@@ -29,10 +29,10 @@ public class Vector_2 extends Vector_<Dim_2>{
 	//****************
 	
 	/** Create vector (0,0) **/
-	public Vector_2() { this.data = new Dim_2(); }
+	public Vector_2() { this.data = new Kernel_2(); }
 
 	/** Create vector (x,y) **/
-	public Vector_2(Number x,Number y) { this.data = new Dim_2(x.doubleValue(),y.doubleValue()); }
+	public Vector_2(Number x,Number y) { this.data = new Kernel_2(x.doubleValue(),y.doubleValue()); }
 
 	/** Create vector from->to ( <=> to.minus(from) ) **/
 	public Vector_2(Point_2 from, Point_2 to) { this.data = to.data.minus(from.data); }
@@ -54,7 +54,7 @@ public class Vector_2 extends Vector_<Dim_2>{
 	}
 	
 	/** Return cross product this x v **/
-	public Number crossProduct(Vector_2 v) {
+	public Double crossProduct(Vector_2 v) {
 		return data.x * v.data.y - data.y * v.data.x;
 	}
 	

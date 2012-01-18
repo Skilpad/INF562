@@ -36,7 +36,8 @@ public class TestPolyhedron {
 	 */    
     public static void test3D() {   	
     	MeshRepresentation m=new MeshRepresentation();
-    	m.readOffFile("cube.off");
+//    	m.readOffFile("cube.off");
+    	m.readOffFile("torus_33.off");
     	LoadMesh<Point_3> load3D=new LoadMesh<Point_3>();
     	
     	Polyhedron_3<Point_3> polyhedron3D=

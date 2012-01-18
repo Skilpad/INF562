@@ -134,7 +134,7 @@ public class KdTree implements NearestNeighborSearch {
 	//-------------------------------
 
 	public static void testMedianComputing(PointCloud N) {
-		System.out.println("exercice 1.1: computing the median (or the mean)");
+
 		if(N==null) return;
 		int cutDim=1;
 
@@ -166,6 +166,8 @@ public class KdTree implements NearestNeighborSearch {
 	}
 
 	public static void main(String[ ] args) throws Exception {
+		System.out.println("LD Library Path:" + System.getProperty("java.library.path"));
+		
 		System.out.println("Exercice 1: testing Kd-trees");
 		PointCloud N;
 

@@ -11,12 +11,10 @@ import java.util.*;
  */
 public class PointCloud {
 
-    public Point_D p;
-    public PointCloud next;
+    public Point_D 		p;
+    public PointCloud 	next;
 
-    /**
-     * Constructor: add a new point to the cloud (copying or not)
-     */
+    /** Constructor: add a new point to the cloud (copying or not) **/
     PointCloud (Point_D p, PointCloud n, boolean copy) {
     	if (copy)
     		this.p = new Point_D (p);
@@ -33,12 +31,40 @@ public class PointCloud {
     }
     
     /**
-     * return the size (number of points)
+     * return the size (number of points) of PointCloud N
      */
     public static int size(PointCloud N) {
     	int size = 0;
     	for (PointCloud n = N; n != null; n = n.next) size++;
     	return size;
+    }
+
+    /** Add point (copied or not) **/
+    public void add(Point_D p, boolean copy) {
+    	this.next = this;
+    	this.p = (copy) ? new Point_D (p) : p;
+    }
+
+    /** Add point (not copied) **/
+    public void add(Point_D p) {
+    	this.next = this;
+    	this.p = p;
+    }
+    
+    /** Return size **/
+    public int size() {
+    	int size = 0;
+    	for (PointCloud n = this; n != null; n = n.next) size++;
+    	return size;
+    }
+
+    
+    /** Return an array representation **/
+    public Point_D[] toArray() {
+    	Point_D[] r = new Point_D[size()];
+    	int i = 0;
+		for (PointCloud pc = this; pc != null; pc = pc.next) { r[i] = pc.p; i++; }
+		return r;
     }
     
     /**

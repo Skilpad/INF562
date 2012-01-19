@@ -23,6 +23,20 @@ public class PointCloud {
     	next = n;
     }
 
+    /** Creates PointCloud only containing only p **/
+    PointCloud (Point_D p) {
+    	this.p = p;
+    	this.next = null;
+    }
+    
+    
+    /** Creates a copy (same next, same p) **/
+    private PointCloud(PointCloud c) {
+    	this.next = c.next;
+    	this.p = c.p;
+	}
+
+    
     public String toString () {
 	String s = "";
 	for (PointCloud n = this; n != null; n = n.next)
@@ -47,9 +61,10 @@ public class PointCloud {
 
     /** Add point (not copied) **/
     public void add(Point_D p) {
-    	this.next = this;
+    	this.next = (this.p == null && this.next == null) ? null : new PointCloud(this);
     	this.p = p;
     }
+    
     
     /** Return size **/
     public int size() {
@@ -57,7 +72,7 @@ public class PointCloud {
     	for (PointCloud n = this; n != null; n = n.next) size++;
     	return size;
     }
-
+    
     
     /** Return an array representation **/
     public Point_D[] toArray() {

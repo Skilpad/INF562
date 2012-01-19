@@ -115,20 +115,52 @@ public class KdTree implements NearestNeighborSearch {
 	//-----------------------------------
 	//--- Implementation of NN search ---
 	//-----------------------------------
-
-
-
+	
+	
+	/** Tests if is leaf **/
+	public boolean isLeaf() { return lowerHalf == null; }
+	/** Return content (for leafs) **/
+	public Point_D leafContent() { return points.p; }
+	
+	
 	/**
 	 * Range search: return the list of nearest point to a given query point q.
-	 * The output is the set of points at distance at most sqRad from q.
+	 * The output is the set of points at squared distance at most sqRad from q.
 	 */    
 	public PointCloud NearestNeighbor (Point_D q, double sqRad) {
-		throw new Error("Exercice 1.3: a' completer");
-
+		PointCloud res = new PointCloud(null);
+		double d_min[] = new double[pointDimension]; Arrays.fill(d_min, Double.NEGATIVE_INFINITY);
+		double d_max[] = new double[pointDimension]; Arrays.fill(d_max, Double.POSITIVE_INFINITY);
+		NN(res, q, Math.sqrt(sqRad), sqRad, d_min, d_max);
+		return res;
 	}
 
+	private void NN(PointCloud cld, Point_D q, double r, double sqRad, double[] d_min, double[] d_max) {
+		Point_D nearest = new Point_D(pointDimension);
+		if (isLeaf()) { Point_D p = leafContent(); if ((Double) p.squareDistance(q) < sqRad) cld.add(p); return; }
+		for (int i = 0; i < pointDimension; i++)
+			nearest.setCartesian(i, (q.Cartesian(i) < d_min[i]) ? d_min[i] :
+									(q.Cartesian(i) > d_max[i]) ? d_max[i] :
+																  q.Cartesian(i));
+		if ((Double) q.squareDistance(nearest) > sqRad) return;
+		double x = q.Cartesian(cutDimension) - cutValue;
+		if (x > -r) { double m0 = d_min[cutDimension]; d_min[cutDimension] = cutValue; upperHalf.NN(cld, q, r, sqRad, d_min, d_max); d_min[cutDimension] = m0; }
+		if (x <  r) { double m0 = d_max[cutDimension]; d_max[cutDimension] = cutValue; lowerHalf.NN(cld, q, r, sqRad, d_min, d_max); d_max[cutDimension] = m0; }
+	}
 
-
+	public boolean check_once() {
+		if (isLeaf()) return true;
+		for (PointCloud pc = lowerHalf.points; pc != null; pc = pc.next) if (pc.p.Cartesian(cutDimension) > cutValue) return false;
+		for (PointCloud pc = upperHalf.points; pc != null; pc = pc.next) if (pc.p.Cartesian(cutDimension) < cutValue) return false;
+		return true;
+	}
+	
+	public boolean check() {
+		if (isLeaf()) return true;
+		return check_once() && lowerHalf.check() && upperHalf.check();
+	}
+	
+	
 	//-------------------------------    
 	//------ Testing  Kd-Trees ------
 	//-------------------------------

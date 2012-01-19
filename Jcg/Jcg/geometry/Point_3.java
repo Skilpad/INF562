@@ -106,6 +106,11 @@ public class Point_3 extends Point_<Kernel_3> {
 	
 	
 	
+	/** Return the i-th coordinate **/
+	public Double getCartesian(int i) { 
+		return data.getCartesian(i); 
+	}
+
 
 }
 

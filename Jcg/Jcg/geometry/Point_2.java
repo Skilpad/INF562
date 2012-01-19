@@ -103,6 +103,11 @@ public class Point_2 extends Point_<Kernel_2>{
 	/** Return dimension **/
 	public int dimension() { return 2;}
 	
+	/** Return the i-th coordinate **/
+	public Double getCartesian(int i) { 
+		return data.getCartesian(i); 
+	}
+
 }
 
 

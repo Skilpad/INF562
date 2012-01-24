@@ -1,0 +1,13 @@
+
+État des TDs :
+- TD1 terminé (excepté questions facultatives)
+- TD2 terminé (excepté questions facultatives)
+- TD3 en cours
+
+État de Jcg :
+- Nouvelle structure les classes de Jcg.geometry :
+  > Pour les classes Point_ et Vector_ les données sont stockées dans un
+    champ de classe Kernel (Kernel est une classe abstraite, étendue par
+	Kernel_2, Kernel_3, Kernel_d).
+  > Les classes Point_*, Vector_*, Triangle_*, Ray_* ont été adaptées.
+  > Les interfaces Ray_interface et Triangle_interface ont été créées.

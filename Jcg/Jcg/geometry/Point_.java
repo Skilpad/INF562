@@ -1,16 +1,18 @@
 package Jcg.geometry;
 
+// TODO: Check that REAL subclasses (Point_2, Point_3, Point_d) return Double instead of Number
+// TODO: subclass for all REAL subclasses?
+//       > Rename THIS class Point<X> and name real points class Point_<X>?
+
 public class Point_<X extends Kernel> implements Comparable<Point_> {
 	
 	protected X data;
 	
-
-	
 	public Point_() { this.data = (X) X.constructor(); }
+	// TODO: Does it works?
 
 	/** Create a copy of p **/
 	public Point_(Point_<X> p) { this.data = (X) p.data.copy(); }
-	
 	
 	
 	@Deprecated
@@ -119,13 +121,9 @@ public class Point_<X extends Kernel> implements Comparable<Point_> {
 	
 	public String toString() { return "("+data.toString()+")"; }
 
-
 	public int compareTo(Point_ o) {
 		return data.compareTo(o.data);
 	}
-	
-	
-
 
 	public int hashCode () {
 		double code = 0;
@@ -139,5 +137,5 @@ public class Point_<X extends Kernel> implements Comparable<Point_> {
 		return (int) code;
 	}
 
-
 }
+

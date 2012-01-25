@@ -2,6 +2,7 @@ package Jcg.triangulations2D;
 
 import Jcg.geometry.GeometricOperations_2;
 import Jcg.geometry.Point_;
+import Jcg.geometry.Point_2;
 
 import java.util.*;
 
@@ -68,11 +69,11 @@ public class TriangulationDSFace_2<X extends Point_> implements Comparable<Trian
 	/** 
 	 * returns an array containing the geometric points associated with the vertices of the triangle
 	 */
-	public Point_[] verticesPoints () {
-		return new Point_[] {
-				(Point_)this.vertices.get(0).getPoint(), 
-				(Point_)this.vertices.get(1).getPoint(), 
-				(Point_)this.vertices.get(2).getPoint()
+	public Point_2[] verticesPoints () {     // TODO: Caution! Returned Point_... Only Point_ in code.
+		return new Point_2[] {
+				(Point_2) this.vertices.get(0).getPoint(), 
+				(Point_2) this.vertices.get(1).getPoint(), 
+				(Point_2) this.vertices.get(2).getPoint()
 		};
 	}
 	

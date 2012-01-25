@@ -1,5 +1,7 @@
 package Jcg.geometry;
 
+// TODO: do hyperplan (with hasOnPositive....)
+
 /*
  * Class for representing an oriented line in 2D. 
  * It is defined by the set of points with Cartesian coordinates (x,y) 

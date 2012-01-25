@@ -16,10 +16,10 @@ public class Point_d extends Point_<Kernel_d>{
 	public Point_d(double[] coord) { this.data = new Kernel_d(coord); }
 
 	/** Creates a Point_d with current values of p coordinates **/
-	public Point_d(Point_ p) { this.data = new Kernel_d(p.data); }
-
+	public Point_d(Point_<?> p) { this.data = new Kernel_d(p.data); }
+	
 	/** Creates the barycenter of points. The dimension is given by points[0]. **/
-	public Point_d(Point_[] points) {
+	public Point_d(Point_<?>[] points) {
 		this.data = new Kernel_d(points[0].dimension());
 		this.barycenter(points);
 	}
@@ -75,5 +75,14 @@ public class Point_d extends Point_<Kernel_d>{
 	}
 
 	
+	/** Return distance to p **/
+	public Double distanceFrom(Point_ p) {
+		return data.minus(p.data).norm();
+	}	
+	/** Return square distance to p **/
+	public Double squareDistance(Point_ p) {
+		return data.minus(p.data).norm2();
+	}
 
+	
 }

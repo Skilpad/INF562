@@ -10,7 +10,7 @@ import java.util.*;
  *
  * @author Luca Castelli Aleardi
  */
-public class GeometricGraph<X extends Point_> {
+public class GeometricGraph<X extends Point_> {     // TODO: Extends KERNEL
 	
 	public List<GraphNode<X>> vertices=null;
 	
@@ -67,7 +67,7 @@ public class GeometricGraph<X extends Point_> {
      * add a Point (2D or 3D) to the graph
      */
 	public void addNode(X p) {
-		GraphNode<X> v=new GraphNode<X>(p);
+		GraphNode<X> v = new GraphNode<X>(p);
 		this.vertices.add(v);
 	}
 
@@ -109,6 +109,52 @@ public class GeometricGraph<X extends Point_> {
 		for(GraphNode<X> v: this.vertices) 
 			result=result+v+"\n";
 		return result;
+	}
+    
+	
+	/**
+	 * Return 2 points defining the bounding box for the points set:
+	 *     Let RES be the returned result.
+	 *     For all i in [0..dim-1] and p in the set:
+	 *         RES[0].getCartesian(i) <= p.getCartesian(i) <= RES[1].getCartesian(i)
+	 */		
+	public X[] boundingBox() {
+		X min = vertices.get(0).getPoint();
+		X max = vertices.get(0).getPoint();
+		for (GraphNode<X> v : vertices) {
+			X p = v.getPoint();
+			int d = p.dimension();
+			for (int i = 0; i < d; i++) {
+				double x = p.getCartesian(i).doubleValue();
+				if (x < min.getCartesian(i).doubleValue()) min.setCartesian(i, x);
+				if (x > max.getCartesian(i).doubleValue()) max.setCartesian(i, x);
+			}
+		}
+		return (X[]) new Point_[] {min,max};
+	}
+	
+	
+	/**
+	 * Returns the list of edges of the graph (their corresponding segments):
+	 * Each element E of the list represents an edge, with E[0] & E[1] as extremities.
+	 */
+	public List<X[]> computeEdges() {
+		List<X[]> result = new ArrayList<X[]>();
+		X[] segment;
+		for(GraphNode<X> u: this.vertices) {
+			for(GraphNode<X> v: u.neighbors) {
+				segment = this.getSegment(u, v);
+				result.add(segment);
+			}
+		}
+		return result;
+	}
+
+	/**
+	 * Return the segment having as extremities two given vertices of the graph
+	 */
+	public X[] getSegment(GraphNode<X> u, GraphNode<X> v) {
+		return (X[]) new Point_[] {u.getPoint(), v.getPoint()};
 	}
 
 }

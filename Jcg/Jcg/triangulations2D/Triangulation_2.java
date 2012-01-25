@@ -256,6 +256,19 @@ public class Triangulation_2 {
 	}
 
 	/**
+	 *  Computes and returns the collection of the points defining all finite faces of the triangulation
+	 *  (that is, faces lying in the interior of the bounding box).
+	 */
+	public Collection<Point_2[]> finiteFacesPoints() {
+		LinkedList<Point_2[]> res = new LinkedList<Point_2[]>();
+		// do not return faces connected to bounding box vertices
+		for(TriangulationDSFace_2<Point_2> f : tri.faces)
+			if ( !isInfinite(f))
+				res.add(f.verticesPoints());
+		return res;
+	}
+
+	/**
 	 *  Computes and returns the collection of all finite edges in the triangulation 
 	 *  (that is, all edges connecting vertices in the interior of the bounding box).
 	 */

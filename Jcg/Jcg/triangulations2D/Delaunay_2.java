@@ -1,5 +1,8 @@
 package Jcg.triangulations2D;
 
+// TODO: Package Jcg.triangulation2D & Jcg.triangulation3D are for 2D & 3D.
+// => Do a more global package & keep no more general Point_ in 2D & 3D versions 
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedList;

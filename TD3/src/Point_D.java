@@ -24,6 +24,10 @@ public class Point_D extends Point_d{
 		  super(p);
 	  }
 
+	  public Point_D(Point_<?>[] p) { 
+		  super(p);
+	  }
+
 	  /*
 	   * Return the i-th coordinate of the point 
 	   */

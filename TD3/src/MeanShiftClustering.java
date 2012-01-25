@@ -21,6 +21,7 @@ public class MeanShiftClustering {
 
     RangeSearch Rs;  // data structure for nearest neighbor search
 
+    static boolean verbose = true;
 
     // Constructors
 
@@ -50,8 +51,18 @@ public class MeanShiftClustering {
      *  - the peak point (at the top of the list)
      */
     public PointCloud detectCluster (Point_D seed, int clusterIndex) {
-    	 throw new Error("Exercice 2.1: a' completer");	
-
+    	Point_D    center  = seed;
+    	PointCloud cluster = Rs.kdNN(center, sqInflRad);
+    	double     delta2  = Double.POSITIVE_INFINITY;
+    	while (delta2 > sqCvgRad) {
+    		Point_D center_ = new Point_D(Rs.kdNN(center, sqAvgRad).toArray());
+    		delta2 = center.squareDistance(center_);
+    		center = center_;
+    		cluster.add(Rs.kdNN(center, sqInflRad));
+    	}
+    	cluster.add(center);
+    	for (PointCloud pc = cluster; pc != null; pc = pc.next) pc.p.cluster = clusterIndex;
+    	return cluster;
     }
 
     /**
@@ -64,7 +75,17 @@ public class MeanShiftClustering {
      *    i: if the input cluster has been associated with the cluster i (already existing)
      */
     public int mergeCluster (PointCloud cluster, Point_D[] clusterCenters) {
-    	throw new Error("Exercice 2.2: a' completer");	
+    	int i = -1; 
+    	double dist2 = sqMergeRad;
+    	Point_D c = cluster.p;
+    	for (int j = 0; j < clusterCenters.length; j++) {
+    		if (clusterCenters[j] == null) break;
+    		double d2 = c.squareDistance(clusterCenters[j]);
+    		if (d2 < dist2) { i = j; dist2 = d2; } 
+    	}
+    	if (i < 0) return -1;
+    	for (PointCloud pc = cluster.next; pc != null; pc = pc.next) pc.p.cluster = i;
+    	return i;
     }
 
 
@@ -77,8 +98,31 @@ public class MeanShiftClustering {
      *   - remaining n-i elements must be null
      */
     public Point_D[] detectClusters () {
-    	throw new Error("Exercice 2.3: a' completer");
-
+    	int todo_n = N.size();
+    	Point_D[] clusterCenters = new Point_D[todo_n];
+    	int clusterIndex = 0;
+    	while (todo_n > 0) {
+    		if (verbose) System.out.println("TODO:    "+todo_n);
+    		int rdm = (int) (todo_n*Math.random());
+    		Point_D seed = null;
+    		for (PointCloud pc = N; pc != null; pc = pc.next) {
+    			if (pc.p.cluster < 0) {
+    				if (rdm == 0) { seed = pc.p; break; }
+    				rdm--;
+    			}
+    		}
+    		PointCloud cl = detectCluster(seed, clusterIndex);
+    		if (verbose) System.out.print("NEIGH.:  "+cl.size());
+    		if (mergeCluster(cl, clusterCenters) < 0) {
+    			if (verbose) System.out.print("  >> New cluster!");
+    			clusterCenters[clusterIndex] = cl.p;
+    			clusterIndex++;
+    		}
+    		if (verbose) System.out.println();
+    		todo_n = 0;
+    		for (PointCloud pc = N; pc != null; pc = pc.next) if (pc.p.cluster < 0) todo_n++;
+    	}
+    	return clusterCenters;
     }
 
     
@@ -115,7 +159,7 @@ public class MeanShiftClustering {
     	long time0 = rightNow.getTimeInMillis();
 
 //--------- choose test to perform ---------------
-    	//testDetectCluster(N, bandWidth); // ex 2.1
+//    	testDetectCluster(N, bandWidth); // ex 2.1
     	testMeanShift(N, bandWidth); // ex 2.3
 //------------------------------------------------
 

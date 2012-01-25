@@ -1,6 +1,6 @@
 package Jcg.geometry;
 
-public class Kernel_2 extends Kernel {
+public class Kernel_2 extends KernelDbl {
 
 	protected double x,y;
 	

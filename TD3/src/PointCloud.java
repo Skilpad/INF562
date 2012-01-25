@@ -13,20 +13,25 @@ public class PointCloud {
 
     public Point_D 		p;
     public PointCloud 	next;
+    
+    private int s;
 
     /** Constructor: add a new point to the cloud (copying or not) **/
     PointCloud (Point_D p, PointCloud n, boolean copy) {
+    	if (p == null) return;
     	if (copy)
     		this.p = new Point_D (p);
     	else
     		this.p = p;
-    	next = n;
+    	this.next = n;
+    	this.s = ((n == null) ? 0 : n.s) + ((p == null) ? 0 : 1);
     }
 
     /** Creates PointCloud only containing only p **/
     PointCloud (Point_D p) {
     	this.p = p;
     	this.next = null;
+    	this.s = (p == null) ? 0 : 1;
     }
     
     
@@ -34,8 +39,9 @@ public class PointCloud {
     private PointCloud(PointCloud c) {
     	this.next = c.next;
     	this.p = c.p;
+    	this.s = c.s;
 	}
-
+    
     
     public String toString () {
 	String s = "";
@@ -45,40 +51,47 @@ public class PointCloud {
     }
     
     /**
-     * return the size (number of points) of PointCloud N
+     * Return the size (number of points) of PointCloud N
      */
     public static int size(PointCloud N) {
-    	int size = 0;
-    	for (PointCloud n = N; n != null; n = n.next) size++;
-    	return size;
+    	return N.s;
     }
 
+    /**
+     * Return the size
+     */
+    public int size() {
+    	return this.s;
+    }
+    
     /** Add point (copied or not) **/
     public void add(Point_D p, boolean copy) {
-    	this.next = this;
+    	if (p == null) return;
+    	this.next = (this.p == null && this.next == null) ? null : new PointCloud(this);
     	this.p = (copy) ? new Point_D (p) : p;
+    	s++;
     }
 
     /** Add point (not copied) **/
     public void add(Point_D p) {
+    	if (p == null) return;
     	this.next = (this.p == null && this.next == null) ? null : new PointCloud(this);
     	this.p = p;
+    	s++;
     }
-    
-    
-    /** Return size **/
-    public int size() {
-    	int size = 0;
-    	for (PointCloud n = this; n != null; n = n.next) size++;
-    	return size;
+        
+    /** Adds all points of pc (not copied) **/
+    public void add(PointCloud pc) {
+    	for (PointCloud pc_ = pc; pc_ != null; pc_ = pc_.next) this.add(pc_.p);
     }
-    
+        
     
     /** Return an array representation **/
     public Point_D[] toArray() {
-    	Point_D[] r = new Point_D[size()];
+    	Point_D[] r = new Point_D[s];
     	int i = 0;
-		for (PointCloud pc = this; pc != null; pc = pc.next) { r[i] = pc.p; i++; }
+		for (PointCloud pc = this; pc != null; pc = pc.next) 
+			if (pc.p != null) { r[i] = pc.p; i++; }
 		return r;
     }
     
@@ -90,7 +103,7 @@ public class PointCloud {
     	for (int i=0; i<n; i++) {
     	    double[] c = new double[dim];
     	    for (int j=0; j<dim; ++j)
-    	    	c[j] = 1.*Math.random();
+    	    	c[j] = Math.random();
     	    result= new PointCloud (new Point_D (c), result, true);
     	}
     	System.out.println("Generated point cloud from random points in dimension "+dim);
@@ -126,7 +139,7 @@ public class PointCloud {
         double u = Math.sqrt(-2.0*Math.log(Math.random()));
         return (u+mean)*sigma;
     }
-
+    
     public static void main(String[ ] args) throws Exception {
     	PointCloud N = null;
     	N=randomPoints(40,5);

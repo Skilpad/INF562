@@ -2,13 +2,7 @@ package Jcg.geometry;
 
 //public interface DataDomain extends Comparable<DataDomain> {
 public abstract class Kernel implements Comparable<Kernel> {
-	
-	/** To use as constructor for classes extending DataDomain:
-	 *  if X extends Kernel, X.constructor() returns new X(),
-	 *  assumed to be the element 0 of X  **/
-	public static Kernel constructor() { throw new Error("Kernel.constructor() shall not be called"); }
-	// TODO: Does not works. Delete.
-	
+		
 	/** Return the i-th coordinate **/
 	public abstract Number getCartesian(int i);  
 	/** Set the i-th coordinate **/

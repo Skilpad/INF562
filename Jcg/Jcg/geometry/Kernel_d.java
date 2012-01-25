@@ -8,7 +8,6 @@ public class Kernel_d extends KernelDbl {
 	public Kernel_d() {
 		this.x = new double[0];
 	}
-	public static Kernel_d constructor() { return new Kernel_d(); }
 
 	/** Create data with dim coordinates set to 0 **/
 	public Kernel_d(int dim) {

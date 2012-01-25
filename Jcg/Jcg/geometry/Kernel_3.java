@@ -8,7 +8,6 @@ public class Kernel_3 extends Kernel_2 {
 	public Kernel_3() {
 		this.x = 0.; this.y = 0.; this.z = 0;
 	}
-	public static Kernel_3 constructor() { return new Kernel_3(); }
 
 	/** Create (x,y,z) **/
 	public Kernel_3(double x, double y, double z) {

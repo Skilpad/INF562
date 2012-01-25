@@ -8,7 +8,6 @@ public class Kernel_2 extends KernelDbl {
 	public Kernel_2() {
 		this.x = 0.; this.y = 0.;
 	}
-	public static Kernel_2 constructor() { return new Kernel_2(); }
 
 	/** Create (x,y) **/
 	public Kernel_2(double x, double y) {

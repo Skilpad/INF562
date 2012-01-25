@@ -31,7 +31,7 @@ public class CompactGraph {
 		test3();
 
 //		testEncodingFinal();
-		//testEncodingFinal3D();
+//		testEncodingFinal3D();
 		System.out.println("end TD5");
 	}
 

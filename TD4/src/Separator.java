@@ -11,7 +11,7 @@ import Jcg.graph.GraphNode;
  *
  * @author Luca Castelli Aleardi
  */
-public abstract class Separator<X extends Kernel> {
+public class Separator<X extends Kernel> {
 
 	/**
      * compute an edge separator of a given graph.
@@ -76,7 +76,9 @@ public abstract class Separator<X extends Kernel> {
      */
 	public void reorderVertices(GeometricGraph<Point_<X>> g) {
 		reorderVertices(computeGraphSequence(g));
-		// tODO: No more adjacency! BAD
+		// TODO: No more adjacency! BAD
+		// BN: Vertices' neighbors are deleted in geometricCut (see subject),
+		//     but this deletion seems useless... <_<
 	}
 	
 }

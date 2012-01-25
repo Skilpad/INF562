@@ -133,6 +133,19 @@ public class GeometricGraph<X extends Point_> {     // TODO: Extends KERNEL
 		return (X[]) new Point_[] {min,max};
 	}
 	
+	/** Returns the barycenter of the graph **/
+	public X barycenter() {   // Find a clean solution to create arrays of Point_<X>!!
+		X bary = vertices.get(0).getPoint();
+		bary.getData().setOrigin();
+		int n = 0;
+		for (GraphNode<X> v : vertices) {
+			bary.getData().add(v.getPoint().getData());
+			n++;
+		}
+		bary.getData().divideBy(n);
+		return bary;
+	}
+	
 	
 	/**
 	 * Returns the list of edges of the graph (their corresponding segments):

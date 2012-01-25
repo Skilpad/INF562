@@ -1,7 +1,5 @@
 package Jcg.geometry;
 
-// TODO: do hyperplan (with hasOnPositive....)
-
 /*
  * Class for representing an oriented line in 2D. 
  * It is defined by the set of points with Cartesian coordinates (x,y) 
@@ -14,37 +12,37 @@ package Jcg.geometry;
  * a px +b py + c > 0. 
  * It is on the negative side, iff a px +b py + c < 0
  */
-public class Line_2 {
+public class Line_2 extends Hyperplan<Kernel_2>{
 
-	  public Double a, b, c;
+	public Double a, b, c;
 
-	  public Line_2() {}
-	  
-	  public Line_2(Number a,Number b, Number c) { 
-	  	this.a=a.doubleValue(); 
-	  	this.b=b.doubleValue();
-	  	this.c=c.doubleValue();
-	  }
+	public Line_2() {}
 
-	  public boolean hasOn(Point_2 p) {
-	  	if(a*p.getX().doubleValue() + b*p.getY().doubleValue() + c == 0.) return true;
-	  	else return false;  
-	  } 
+	public Line_2(Number a,Number b, Number c) { 
+		this.a=a.doubleValue(); 
+		this.b=b.doubleValue();
+		this.c=c.doubleValue();
+	}
 
-	  public boolean hasOnPositiveSide(Point_2 p) {
-	  	if(a*p.getX().doubleValue() + b*p.getY().doubleValue() + c > 0.) return true;
-	  	else return false;  
+	public boolean hasOn(Point_2 p) {
+		if(a*p.getX().doubleValue() + b*p.getY().doubleValue() + c == 0.) return true;
+		else return false;  
 	} 
 
-	  public boolean hasOnNegativeSide(Point_2 p) {
-	  	if(a*p.getX().doubleValue() + b*p.getY().doubleValue() + c < 0) return true;
-	  	else return false;  
-	  } 
-	 
-	  public boolean equals(Line_2 l) { 
-	  	throw new Error("A completer");  
-	  }
+	public boolean hasOnPositiveSide(Point_2 p) {
+		if(a*p.getX().doubleValue() + b*p.getY().doubleValue() + c > 0.) return true;
+		else return false;  
+	} 
 
-	  public String toString() {return ""+a+"x +"+b+"y +"+c; }
-	  public int dimension() { return 2;}
+	public boolean hasOnNegativeSide(Point_2 p) {
+		if(a*p.getX().doubleValue() + b*p.getY().doubleValue() + c < 0) return true;
+		else return false;  
+	} 
+
+	public boolean equals(Line_2 l) { 
+		throw new Error("A completer");  
+	}
+
+	public String toString() {return ""+a+"x +"+b+"y +"+c; }
+	public int dimension() { return 2;}
 }

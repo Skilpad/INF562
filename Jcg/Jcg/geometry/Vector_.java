@@ -110,6 +110,14 @@ public class Vector_<X extends Kernel>  {
 		data.divideBy(data.norm());
 	}
 	
+	/** Set coordinates to get a random normalized vector **/
+	public void randomize() {
+		int d = dimension();
+		for (int i = 0; i < d; i++) this.setCartesian(i, Math.random());
+		this.normalize();
+	}
+
+	
 	public int dimension() {
 		return data.dimension();
 	}

@@ -22,6 +22,7 @@ public class GraphNode<X extends Point_<?>> {
 		this.point = p;
 	}
 
+
 	/** Adds the node v as neighbor. **/
 	public void addNeighbors(GraphNode<X> v) {
 		if(v!=this && this.neighbors.contains(v)==false)

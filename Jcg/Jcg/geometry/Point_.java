@@ -109,7 +109,16 @@ public class Point_<X extends Kernel> implements Comparable<Point_> {
 			data.add(points[i].data.multipliedBy(coefficients[i]));
 	}
 	
-
+	/** Set coordinates to random values such as min.getCartesian(i).doubleValue() <= this.getCartesian(i).doubleValue() < max.getCartesian(i).doubleValue() **/
+	public void randomize(Point_<X> min, Point_<X> max) {
+		int d = dimension();
+		for (int i = 0; i < d; i++) {
+			double xmin = min.getCartesian(i).doubleValue();
+			this.setCartesian(i, xmin + Math.random()*(max.getCartesian(i).doubleValue()-xmin));
+		}
+	}
+	
+	
 	/** Return a copy of p (fields are not shared) **/
 	public Point_<X> copy() {
 		return new Point_<X>(this);
@@ -118,6 +127,8 @@ public class Point_<X extends Kernel> implements Comparable<Point_> {
 	
 	/** Return dimension **/
 	public int dimension() { return data.dimension(); }
+	
+	
 	
 	public String toString() { return "("+data.toString()+")"; }
 

@@ -8,8 +8,7 @@ public class Point_<X extends Kernel> implements Comparable<Point_> {
 	
 	protected X data;
 	
-	public Point_() { this.data = (X) X.constructor(); }
-	// TODO: Does it works?
+	public Point_() { this.data = (X) new Kernel0(); }
 
 	/** Create a copy of p **/
 	public Point_(Point_<X> p) { this.data = (X) p.data.copy(); }

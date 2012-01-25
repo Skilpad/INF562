@@ -66,17 +66,17 @@ public abstract class Separator<X extends Kernel> {
 	/**
      * Relabel the vertices according to the order in the list
      */		    
-	public void reorderVertices(List<GraphNode> l) {
-		throw new Error("a' completer");
-		
+	public void reorderVertices(List<GraphNode<Point_<X>>> l) {
+		int i = 0;
+		for (GraphNode<Point_<X>> n : l) { n.tag = i; i++; }
 	}
 
 	/**
      * The main function: compute a graph partitioning based on separators, and relabel vertices
-     */		    
-	public void reorderVertices(GeometricGraph g) {
-		throw new Error("a' completer");
-
+     */
+	public void reorderVertices(GeometricGraph<Point_<X>> g) {
+		reorderVertices(computeGraphSequence(g));
+		// tODO: No more adjacency! BAD
 	}
 	
 }

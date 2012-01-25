@@ -5,7 +5,7 @@ public class Vector_<X extends Kernel>  {
 	protected X data;
 	
 	
-	public Vector_() { this.data = (X) X.constructor(); }
+	public Vector_() { this.data = (X) new Kernel0(); }
 
 	/** Create a copy of p **/
 	public Vector_(Vector_<X> p) { this.data = (X) p.data.copy(); }

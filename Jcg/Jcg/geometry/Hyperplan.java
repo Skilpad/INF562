@@ -2,8 +2,8 @@ package Jcg.geometry;
 
 public class Hyperplan<X extends Kernel>{
 	
-	private Point_<X> M;
-	private Vector_<X> n;
+	protected Point_<X> M;
+	protected Vector_<X> n;
 	
 	public Hyperplan() {}
 	
@@ -18,6 +18,10 @@ public class Hyperplan<X extends Kernel>{
 	}
 
 	public boolean hasOnPositiveSide(Point_<X> p) {
+		if (p == null) throw new Error("p null");
+		if (p.data == null) throw new Error("p.data null");
+		if (M == null) throw new Error("M null");
+		if (M.data == null) throw new Error("M.data null");
 		return (Double) n.innerProduct(p.minus(M)) > 0;
 		// TODO: Good for any Kernel?
 	} 

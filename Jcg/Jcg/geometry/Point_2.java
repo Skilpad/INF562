@@ -2,8 +2,6 @@ package Jcg.geometry;
 
 public class Point_2 extends Point_<Kernel_2>{
 
-	
-	
 	/** Return x **/
 	public Double getX() { return data.getX(); }
 	/** Return y **/
@@ -36,7 +34,8 @@ public class Point_2 extends Point_<Kernel_2>{
 	public Point_2(Number x,Number y) { this.data = new Kernel_2(x.doubleValue(),y.doubleValue()); }
 
 	/** Creates a point with current values of p coordinates **/
-	public Point_2(Point_ p) { this.data = new Kernel_2(p.data); }
+	public Point_2(Point_<?> p) { this.data = new Kernel_2(p.data); }
+	
 
 	/** Creates the barycenter of points **/
 	public Point_2(Point_[] points) {

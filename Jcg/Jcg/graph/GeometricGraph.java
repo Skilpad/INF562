@@ -135,7 +135,7 @@ public class GeometricGraph<X extends Point_> {     // TODO: Extends KERNEL
 	
 	/** Returns the barycenter of the graph **/
 	public X barycenter() {   // Find a clean solution to create arrays of Point_<X>!!
-		X bary = vertices.get(0).getPoint();
+		X bary = (X) vertices.get(0).getPoint().copy();
 		bary.getData().setOrigin();
 		int n = 0;
 		for (GraphNode<X> v : vertices) {
@@ -171,3 +171,4 @@ public class GeometricGraph<X extends Point_> {     // TODO: Extends KERNEL
 	}
 
 }
+

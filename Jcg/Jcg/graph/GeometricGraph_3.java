@@ -12,7 +12,7 @@ import Jcg.triangulations3D.*;
  *
  * @author Luca Castelli Aleardi
  */
-public class GeometricGraph_3 extends GeometricGraph<Point_3>{
+public class GeometricGraph_3 extends GeometricGraph<Point_<Kernel_3>>{
 
 	public GeometricGraph_3() {
 		super();
@@ -22,17 +22,17 @@ public class GeometricGraph_3 extends GeometricGraph<Point_3>{
      * Create a copy of a given graph: points are shared, but not vertices.
      * It requires the input graph has already a vertex labeling
      */	
-	public GeometricGraph_3(GeometricGraph<Point_3> g) {
-		this.vertices=new ArrayList<GraphNode<Point_3>>();
+	public GeometricGraph_3(GeometricGraph<Point_<Kernel_3>> g) {
+		this.vertices=new ArrayList<GraphNode<Point_<Kernel_3>>>();
 		
-		for(GraphNode<Point_3> v: g.vertices) 
+		for(GraphNode<Point_<Kernel_3>> v: g.vertices) 
 			this.addNode(v.getPoint());
 		
 		int i=0;
-		for(GraphNode<Point_3> v: g.vertices) {
-			List<GraphNode<Point_3>> vNeighbors=v.neighbors;
-			GraphNode<Point_3> vertexToUpdate=this.vertices.get(i);
-			for(GraphNode<Point_3> u: vNeighbors) {
+		for(GraphNode<Point_<Kernel_3>> v: g.vertices) {
+			List<GraphNode<Point_<Kernel_3>>> vNeighbors=v.neighbors;
+			GraphNode<Point_<Kernel_3>> vertexToUpdate=this.vertices.get(i);
+			for(GraphNode<Point_<Kernel_3>> u: vNeighbors) {
 				int index=u.getTag();
 				vertexToUpdate.addNeighbors(this.vertices.get(index));
 			}
@@ -74,9 +74,9 @@ public class GeometricGraph_3 extends GeometricGraph<Point_3>{
     		int index2=m.faces[i][1];
     		int index3=m.faces[i][2];
     		//System.out.println(""+index1+" "+index2+" "+index3);
-    		GraphNode<Point_3> v1=g3D.getNode(index1);
-    		GraphNode<Point_3> v2=g3D.getNode(index2);
-    		GraphNode<Point_3> v3=g3D.getNode(index3);
+    		GraphNode<Point_<Kernel_3>> v1=g3D.getNode(index1);
+    		GraphNode<Point_<Kernel_3>> v2=g3D.getNode(index2);
+    		GraphNode<Point_<Kernel_3>> v3=g3D.getNode(index3);
     		v1.addNeighbors(v2);
     		v2.addNeighbors(v3);
     		v3.addNeighbors(v1);

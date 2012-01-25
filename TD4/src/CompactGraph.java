@@ -21,13 +21,14 @@ public class CompactGraph {
 //		testCreate2DGraph();
 //		testCreate3DGraph();
 //		testEncoding2D();
+		// TODO: in graphics function (when plot): recurrent error: "java.util.ConcurrentModificationException"
 //		testEncoding3D();
 
 //		test1a();
-		//test1b(); // test graph partitioning in 2D
-		//test1b3D(); // test graph partitioning in 3D
-		//test2();
-		//test3();
+//		test1b(); // test graph partitioning in 2D
+//		test1b3D(); // test graph partitioning in 3D
+//		test2();
+		test3();
 
 //		testEncodingFinal();
 		//testEncodingFinal3D();
@@ -140,13 +141,17 @@ public class CompactGraph {
 		CompactGraph.drawGeometricGraph_2(g);
 		
 		Separator_2 separator=new Separator_2();
-		GeometricGraph[] subgraphs=separator.geometricCut(g, new Line_2(1., 1., 0.));
+		GeometricGraph<Point_<Kernel_2>>[] subgraphs = separator.geometricCut(g, new Line_2(1., 1., 0.));
 		
 		System.out.println("first sub-graph: "+subgraphs[0].sizeVertices());
 		System.out.println("second sub-graph: "+subgraphs[1].sizeVertices());
 		
-		CompactGraph.drawGeometricGraph_2((GeometricGraph_2)subgraphs[0]);
-		CompactGraph.drawGeometricGraph_2((GeometricGraph_2)subgraphs[1]);
+		CompactGraph.drawGeometricGraph_2(subgraphs[0]);
+		CompactGraph.drawGeometricGraph_2(subgraphs[1]);
+		
+		for (GraphNode<Point_<Kernel_2>> v : subgraphs[1].vertices)
+			subgraphs[0].addNode(v);
+		CompactGraph.drawGeometricGraph_2(subgraphs[0]);		
 	}
 
 	public static void test1b() {
@@ -155,9 +160,9 @@ public class CompactGraph {
 		CompactGraph.drawGeometricGraph_2(g);
 		
 		Separator_2 separator=new Separator_2();
-		List<GraphNode> result=separator.computeGraphSequence(g);
+		List<GraphNode<Point_<Kernel_2>>> result=separator.computeGraphSequence(g);
 		int cont=0;
-		for(GraphNode graph: result) {
+		for(GraphNode<Point_<Kernel_2>> graph: result) {
 				cont++;
 		}
 		System.out.println(cont+" isolated vertices");
@@ -172,9 +177,9 @@ public class CompactGraph {
 		GeometricGraph_3 g=CompactGraph.createDelaunayGraph_3(500);
 		
 		Separator_3 separator=new Separator_3();
-		List<GraphNode> result=separator.computeGraphSequence(g);
+		List<GraphNode<Point_<Kernel_3>>> result=separator.computeGraphSequence(g);
 		int cont=0;
-		for(GraphNode graph: result) {
+		for(GraphNode<Point_<Kernel_3>> graph : result) {
 				cont++;
 		}
 		System.out.println(cont+" isolated vertices");
@@ -276,9 +281,9 @@ public class CompactGraph {
 		CompactGraph.drawGeometricGraph_2(g);
 		
 		Separator_2 separator=new Separator_2();
-		List<GraphNode> result=separator.computeGraphSequence(g);
+		List<GraphNode<Point_<Kernel_2>>> result=separator.computeGraphSequence(g);
 		int cont=0;
-		for(GraphNode v: result) {
+		for(GraphNode<Point_<Kernel_2>> v: result) {
 				System.out.println("vertex: "+cont+" - "+v);
 				cont++;
 		}
@@ -291,16 +296,16 @@ public class CompactGraph {
 		CompactGraph.drawGeometricGraph_2(g);
 		List<Point_2> echantillon1=new ArrayList<Point_2>();
 		for(int i=0;i<50;i++)
-			echantillon1.add(g.vertices.get(i).getPoint());
-		Fenetre f1=new Fenetre();
+			echantillon1.add((Point_2) g.vertices.get(i).getPoint());
+		Fenetre f1 = new Fenetre();
 		f1.addPoints(echantillon1);
 		
 		Separator_2 separator=new Separator_2();
 		separator.reorderVertices(g);
 		System.out.println(g);
 		List<Point_2> echantillon2=new ArrayList<Point_2>();
-		for(GraphNode<Point_2> v: g.vertices)
-			if(v.getTag()<15)echantillon2.add(v.getPoint());
+		for(GraphNode<Point_<Kernel_2>> v: g.vertices)
+			if(v.getTag()<15)echantillon2.add((Point_2) v.getPoint());
 		Fenetre f2=new Fenetre();
 		f2.addPoints(echantillon2);
 	}
@@ -308,10 +313,14 @@ public class CompactGraph {
 	/**
 	 * Draw a 2D geometric graph
 	 */	
-	public static void drawGeometricGraph_2(GeometricGraph_2 g) {
-		List<Point_2[]> edgeList=g.computeEdges();
+	public static void drawGeometricGraph_2(GeometricGraph<Point_<Kernel_2>> g) {
+		List<Point_<Kernel_2>[]> edgeList = g.computeEdges();
 		Fenetre f=new Fenetre();
-		f.addSegments(edgeList);
+		for (Point_<Kernel_2>[] seg : edgeList) f.addSegment((Point_2) seg[0], (Point_2) seg[1]);
+		// TODO: Graphic functions should be compatible with Point_<Kernel_2> instead of Point_2
+		// => Is an automatic cast possible?
 	}
+	
+	// TODO: Why the F*** List<Point_2[]> does not extends List<Point_<Kernel_2>[]>?! 
 	
 }

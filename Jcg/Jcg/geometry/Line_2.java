@@ -14,35 +14,13 @@ package Jcg.geometry;
  */
 public class Line_2 extends Hyperplan<Kernel_2>{
 
-	public Double a, b, c;
-
 	public Line_2() {}
 
-	public Line_2(Number a,Number b, Number c) { 
-		this.a=a.doubleValue(); 
-		this.b=b.doubleValue();
-		this.c=c.doubleValue();
+	/** Creates line given by: a*x + b*y + c = 0 **/
+	public Line_2(double a, double b, double c) { 
+		this.M = new Point_2(0,-c/b);
+		this.n = new Vector_2(a,b);
 	}
 
-	public boolean hasOn(Point_2 p) {
-		if(a*p.getX().doubleValue() + b*p.getY().doubleValue() + c == 0.) return true;
-		else return false;  
-	} 
-
-	public boolean hasOnPositiveSide(Point_2 p) {
-		if(a*p.getX().doubleValue() + b*p.getY().doubleValue() + c > 0.) return true;
-		else return false;  
-	} 
-
-	public boolean hasOnNegativeSide(Point_2 p) {
-		if(a*p.getX().doubleValue() + b*p.getY().doubleValue() + c < 0) return true;
-		else return false;  
-	} 
-
-	public boolean equals(Line_2 l) { 
-		throw new Error("A completer");  
-	}
-
-	public String toString() {return ""+a+"x +"+b+"y +"+c; }
 	public int dimension() { return 2;}
 }

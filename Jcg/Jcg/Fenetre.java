@@ -4,7 +4,6 @@ import java.awt.BasicStroke;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Frame;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.WindowAdapter;
@@ -135,8 +134,8 @@ public class Fenetre extends Canvas {
     /**
      * Add a collection of (generic) points
      */    
-    public void addGenericPoints(Collection<Point_> points) {
-    	for(Point_ p : points)
+    public void addGenericPoints(Collection<Point_<?>> points) {
+    	for(Point_<?> p : points)
     		ajoutePoint(p.getCartesian(0).doubleValue(), p.getCartesian(1).doubleValue());
     }
 
@@ -326,16 +325,7 @@ public class Fenetre extends Canvas {
     		g.draw(l);
     		i++;
     	}
-    	
-    	// draw labels
-    	i=0;
-    	Font fonte = new Font(" TimesRoman ",Font.BOLD,2);
-    	for(Point2D p: this.labelCoordinates) {
-    		//g.drawString("x", (float)p.getX(), (float)p.getY());
-    		g.drawString("x", (float)0., (float)0.);
-    	}
-
-    	g.setColor(Color.black);
+       	g.setColor(Color.black);
     }
     
     public void paint(Graphics graphics) {

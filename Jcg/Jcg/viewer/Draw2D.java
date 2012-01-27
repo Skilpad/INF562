@@ -2,9 +2,6 @@ package Jcg.viewer;
 
 import java.awt.*;
 import java.awt.Graphics;
-import java.applet.*;
-import java.util.*;
-import java.io.*;
 
 import Jcg.geometry.*;
 
@@ -20,7 +17,11 @@ public class Draw2D {
 	public Draw2D(Graphics g,Point_2 a,Point_2 b,int l, int h) {
 		this.g=g; this.a=a; this.b=b; this.width=l; this.height=h;
 	}
-	
+
+	public Draw2D(Graphics g,Point_<?> a,Point_<?> b,int l, int h) {
+		this.g=g; this.a=new Point_2(a); this.b=new Point_2(b); this.width=l; this.height=h;
+	}
+
 	public Draw2D() {}
 
     public void fillTriangle(int[] x, int[] y, Color colorTriangle, Color e1, Color e2, Color e3,boolean filled) {
@@ -32,39 +33,47 @@ public class Draw2D {
 		g.setColor(e2); g.drawLine(x[1],y[1],x[2],y[2]);
     }
 
-    public void fillTriangle(Point_2 p1, Point_2 p2, Point_2 p3, Color triangle) {
-    	//throw new Error("To be completed");  	
+    public void fillTriangle(Point_<?> p1, Point_<?> p2, Point_<?> p3, Color triangle) {
     	g.setColor(triangle);
-
-		int[] x=new int[3];
-		int[] y=new int[3];
-		double denominatorX=b.getX().doubleValue()-a.getX().doubleValue();
-		double denominatorY=b.getY().doubleValue()-a.getY().doubleValue();
+    	
+    	Point_2 p1_ = new Point_2(p1);
+    	Point_2 p2_ = new Point_2(p2);
+    	Point_2 p3_ = new Point_2(p3);
+    	
+		int[] x = new int[3];
+		int[] y = new int[3];
+		double denominatorX=b.x()-a.x();
+		double denominatorY=b.y()-a.y();
 		
-		x[0]= (int) (this.width*( (p1.getX().doubleValue()-a.getX().doubleValue()) / denominatorX ));
-		y[0]= this.height - (int) (this.height*( (p1.getY().doubleValue()-a.getY().doubleValue()) / denominatorY ));
+		x[0]= (int) (this.width*( (p1_.x()-a.x()) / denominatorX ));
+		y[0]= this.height - (int) (this.height*( (p1_.y()-a.y()) / denominatorY ));
 		
-		x[1]= (int) (this.width*( (p2.getX().doubleValue()-a.getX().doubleValue()) / denominatorX ));
-		y[1]= this.height - (int) (this.height*( (p2.getY().doubleValue()-a.getY().doubleValue()) / denominatorY ));
+		x[1]= (int) (this.width*( (p2_.x()-a.x()) / denominatorX ));
+		y[1]= this.height - (int) (this.height*( (p2_.y()-a.y()) / denominatorY ));
 
-		x[2]= (int) (this.width*( (p3.getX().doubleValue()-a.getX().doubleValue()) / denominatorX ));
-		y[2]= this.height - (int) (this.height*( (p3.getY().doubleValue()-a.getY().doubleValue()) / denominatorY ));
+		x[2]= (int) (this.width*( (p3_.x()-a.x()) / denominatorX ));
+		y[2]= this.height - (int) (this.height*( (p3_.y()-a.y()) / denominatorY ));
     	
     	g.fillPolygon(x,y,3);
     }
-
+    
     // draw an arrow on the vector v-u (oriented toward v)
-    public void drawArrow(Point_2 u, Point_2 v, Color arrowColor) {
+    public void drawArrow(Point_<?> u, Point_<?> v, Color arrowColor) {
     	Point_2 p0, p1, p2, c;
     	
+    	double ux = u.getCartesian(0).doubleValue();
+    	double uy = u.getCartesian(1).doubleValue();
+    	double vx = v.getCartesian(0).doubleValue();
+    	double vy = v.getCartesian(1).doubleValue();
+    	
     	double b=0.6;
-    	double x_coord=(1-b)*u.getX().doubleValue()+b*v.getX().doubleValue();
-    	double y_coord=(1-b)*u.getY().doubleValue()+b*v.getY().doubleValue();
+    	double x_coord=(1-b)*ux+b*vx;
+    	double y_coord=(1-b)*uy+b*vy;
     	c=new Point_2(x_coord, y_coord);
 
     	double radius=Math.sqrt(u.squareDistance(v).doubleValue());
-    	double dxNormalized=(v.getX().doubleValue()-u.getX().doubleValue())/radius;
-    	double dyNormalized=(v.getY().doubleValue()-u.getY().doubleValue())/radius;
+    	double dxNormalized=(vx-ux)/radius;
+    	double dyNormalized=(vy-uy)/radius;
     	double alpha=Math.acos(dxNormalized);
     	if(dyNormalized<0.) alpha=-1.*alpha;
     	

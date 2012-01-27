@@ -11,11 +11,11 @@ import Jcg.graph.*;
  *
  * @author Luca Castelli Aleardi
  */
-public class IterativeTutteDrawing<X extends Point_> extends GraphDrawing<X>{
+public class IterativeTutteDrawing<X extends Point_<?>> extends GraphDrawing<X>{
 
 	Matrix laplacian;
 	public static int nIterations = 1500;
-	Point_[] exteriorPoints;
+	Point_<?>[] exteriorPoints;
 
 	public IterativeTutteDrawing() {}
 
@@ -64,8 +64,8 @@ public class IterativeTutteDrawing<X extends Point_> extends GraphDrawing<X>{
 	public static void main(String[] args) {
 		System.out.println("Tutte Drawing iteratively");
 
-		//Graph g = AdjacencyGraph.constructDodecahedron();
-		Graph g = graphExamples.example12();
+		Graph g = AdjacencyGraph.constructDodecahedron();
+//		Graph g = graphExamples.example12();
 
 		System.out.println("graph initialized");
 		

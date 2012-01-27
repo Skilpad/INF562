@@ -130,7 +130,7 @@ public class MeshViewer extends Applet {
     apTrans.setPointAttributes(new PointAttributes(6f, true));
     // setting transparency parameters
     TransparencyAttributes ta = new TransparencyAttributes();
-    ta.setTransparencyMode (ta.BLENDED);
+    ta.setTransparencyMode (TransparencyAttributes.BLENDED);
     ta.setTransparency (0.3f);
     apTrans.setTransparencyAttributes (ta);
 

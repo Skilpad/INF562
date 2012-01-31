@@ -1,5 +1,6 @@
 
 
+
 import java.io.*;
 import java.util.Calendar;
 import java.math.*;
@@ -59,7 +60,7 @@ class ImageSegmentation extends Clustering {
 		Fenetre fInput=new Fenetre(bimg, "input image");
 
 		System.out.print("\nPress <Enter> to start computation...");
-		System.in.read();
+//		System.in.read();
 
 		ImageSegmentation msc = new ImageSegmentation (N, bandWidth);
 		// 	ImageSegmentation msc = new ImageSegmentation (N, N, 0.001, 1.7, 0.001, 1.6);

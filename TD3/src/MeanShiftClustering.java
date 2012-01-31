@@ -21,7 +21,7 @@ public class MeanShiftClustering {
 
     RangeSearch Rs;  // data structure for nearest neighbor search
 
-    static boolean verbose = true;
+    static boolean verbose = false;
 
     // Constructors
 
@@ -54,8 +54,15 @@ public class MeanShiftClustering {
     	Point_D    center  = seed;
     	PointCloud cluster = Rs.kdNN(center, sqInflRad);
     	double     delta2  = Double.POSITIVE_INFINITY;
+    	//TODO
+    	int i = 0;
     	while (delta2 > sqCvgRad) {
-    		Point_D center_ = new Point_D(Rs.kdNN(center, sqAvgRad).toArray());
+    		// TODO
+//    		Point_D center_ = new Point_D(Rs.kdNN(center, sqAvgRad).toArray());
+    		PointCloud pc = Rs.kdNN(center, sqAvgRad);
+    		Point_D[] center_A = pc.toArray();
+    	System.out.println((i++) + "  -  " + center_A.length);
+    		Point_D center_ = new Point_D(center_A);
     		delta2 = center.squareDistance(center_);
     		center = center_;
     		cluster.add(Rs.kdNN(center, sqInflRad));
@@ -70,7 +77,7 @@ public class MeanShiftClustering {
      * input: 
      *   - the point cloud to be merge (cluster), containing at the top its center
      *   - the set (array) of cluster centers
-     * output:
+     * output:²
      *   -1: if no merge is performed
      *    i: if the input cluster has been associated with the cluster i (already existing)
      */
